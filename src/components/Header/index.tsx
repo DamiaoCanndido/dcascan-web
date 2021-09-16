@@ -33,9 +33,6 @@ export default function Header(){
                     />
                 </button>
             </header>
-            <footer>
-
-            </footer>
         </div>
     );
 }
