@@ -5,32 +5,37 @@ import { FiSettings, FiSearch } from "react-icons/fi";
 
 export default function Header(){
     return (
-        <header className={styles.headerContainer}>
-            <Link href='/'>
-                <a>
-                    <Image
-                        src="/TomK32-Paperboat.svg"
-                        alt="DCAlogo"
-                        width={100}
-                        height={100}
-                    />
-                </a>
-            </Link>
-            <form>
-                <input placeholder='Pesquisar...'/>
+        <div className={styles.divContainer}>
+            <header>
+                <Link href='/'>
+                    <a>
+                        <Image
+                            src="/TomK32-Paperboat.svg"
+                            alt="DCAlogo"
+                            width={100}
+                            height={100}
+                        />
+                    </a>
+                </Link>
+                <form>
+                    <input placeholder='Pesquisar...'/>
+                    <button>
+                        <FiSearch
+                            color='var(--white)'
+                            size={25}
+                        />
+                    </button>
+                </form>
                 <button>
-                    <FiSearch
+                    <FiSettings
                         color='var(--white)'
                         size={25}
                     />
                 </button>
-            </form>
-            <button>
-                <FiSettings
-                    color='var(--white)'
-                    size={25}
-                />
-            </button>
-        </header>
+            </header>
+            <footer>
+
+            </footer>
+        </div>
     );
 }
