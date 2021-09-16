@@ -4,25 +4,29 @@
     display: flex;
     align-items: center;
     padding: 2rem 4rem;
-    border-bottom: 1px solid var(--gray-100);
+    border-bottom: 1px solid var(--gray-800);
 
     form {
         margin-left: auto;
-        width: 80%;
+        margin-right: auto;
         display: flex;
         input {
-            height: 3rem;
-            padding: 0.5rem;
-            border-color: var(--gray-200);
-            border-radius: 4px;
+            margin-right: 0.5rem;
         }
-        button{
-            width: 20%;
+        button {
+            width: 3rem;
+            background-color: transparent;
+            border: none;
+        }
+        input, button {
+            height: 3rem;
         }
     }
 
-    span {
-        margin-left: auto;
-        text-transform: capitalize;
+    button {
+        width: 3rem;
+        height: 3rem;
+        background-color: transparent;
+        border: none;
     }
 }
