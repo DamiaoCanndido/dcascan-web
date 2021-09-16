@@ -1,12 +1,11 @@
 import type { NextPage } from 'next'
-import Header from '../components/Header'
 
-// Global function
-const Home: NextPage = () => {
+
+const Login: NextPage = () => {
   return (
-    <Header />
+    <h1>Login</h1>
   )
 }
 
-export default Home
+export default Login
 

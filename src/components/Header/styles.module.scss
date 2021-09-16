@@ -1,0 +1,28 @@
+.headerContainer {
+    background: var(--green-500);
+    height: 6.5rem;
+    display: flex;
+    align-items: center;
+    padding: 2rem 4rem;
+    border-bottom: 1px solid var(--gray-100);
+
+    form {
+        margin-left: auto;
+        width: 80%;
+        display: flex;
+        input {
+            height: 3rem;
+            padding: 0.5rem;
+            border-color: var(--gray-200);
+            border-radius: 4px;
+        }
+        button{
+            width: 20%;
+        }
+    }
+
+    span {
+        margin-left: auto;
+        text-transform: capitalize;
+    }
+}
