@@ -13,12 +13,11 @@
     --gray-500: #808080;
     --gray-800: #494D4B;
 
-    --green-500: #84D361;
-
-    --purple-300: #9F75FF;
-    --purple-400: #9164FA;
-    --purple-500: #8257E5;
-    --purple-800: #6F48C9;
+    --green-100: #90c2e7;
+    --green-300: #4e8098;
+    --green-400: #00a9a5;
+    --green-500: #0b5351;
+    --green-800: #092327;
 }
 
 @media (max-width: 1080px) {
@@ -34,7 +33,7 @@
 }
 
 body {
-    background: var(--gray-50);
+    background: var(--green-100);
 }
 
 body, input, textarea, button {

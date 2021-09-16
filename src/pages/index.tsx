@@ -1,11 +1,12 @@
 import type { NextPage } from 'next'
+import Landing from './landing'
 
 
-const Login: NextPage = () => {
+const Main: NextPage = () => {
   return (
-    <h1>Login</h1>
+    <Landing />
   )
 }
 
-export default Login
+export default Main
 
