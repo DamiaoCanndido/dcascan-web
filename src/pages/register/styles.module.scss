@@ -10,24 +10,23 @@
     }
 
     h2 {
-        font-size: 24px;
-        margin: 64px 0 24px;
+        margin: 1rem;
     }
 
     form {
         display: flex;
         flex-direction: column;
         input {
-            height: 50px;
-            border-radius: 8px;
-            padding: 0 16px;
-            margin-bottom: 12px;
-            background: #fff;
-            border: 1px solid #a8a8b3;
+            height: 3.2rem;
+            border-radius: 0.5rem;
+            padding: 0 0.5rem;
+            margin-bottom: 0.7rem;
+            background: var(--white);
+            border: 0.1rem solid var(--gray-500);
         }
 
         button {
-            margin-top: 16px;
+            margin-top: 1rem;
         }
 
         button, input {
@@ -35,13 +34,12 @@
         }
     }
     a {
-        color: #e559f9;
-        margin-left: 5px;
+        color: transparent;
+        margin-left: 1rem;
 
         p {
-            font-size: 14px;
-            color: #737380;
-            margin-top: 16px;
+            color: var(--gray-800);
+            margin-top: 0.5rem;
         }
     }
 }

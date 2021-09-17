@@ -43,7 +43,7 @@ const Register: NextPage = () => {
               Criar Conta
           </Button>
         </form>
-        <Link href='/'>
+        <Link href='/login'>
           <a>
             <p>Já possui uma conta?</p>
           </a>
