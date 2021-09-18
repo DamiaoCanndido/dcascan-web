@@ -1,8 +1,7 @@
 .landingContainer {
     display: flex;
+    align-items: stretch;
     height: 100vh;
-    width: 100vw;
-    flex-direction: row;
 
     aside {
         flex: 3;
@@ -10,10 +9,6 @@
         justify-content: center;
         flex-direction: column;
         padding: 3rem;
-
-        img {
-            display: block;
-        }
 
         strong {
             font-size: 3rem;
@@ -26,9 +21,19 @@
     }
 
     main {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
         flex: 2;
         background: var(--green-400);
         height: 100vh;
-        width: 100vw;
+
+        a {
+            color: transparent;
+            button {
+                width: 20rem;
+            }
+        }
     }
 }

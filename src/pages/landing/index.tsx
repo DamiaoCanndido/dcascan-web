@@ -1,9 +1,18 @@
 import type { NextPage } from 'next'
+import { FormEvent } from "react";
+import Link from 'next/link';
 import styles from './styles.module.scss';
 import Image from 'next/image';
+import { Button } from '../../components/Button';
 
 
 const Landing: NextPage = () => {
+
+  async function handleSubmit(e: FormEvent) {
+    e.preventDefault();
+    console.log('Clicou')
+  }
+
   return (
     <div className={styles.landingContainer}>
       <aside>
@@ -18,7 +27,20 @@ const Landing: NextPage = () => {
         <p>Plataforma para armazenamento de documentos para a administração pública.</p>
       </aside>
       <main>
-
+      <Link href='/register'>
+        <a>
+          <Button>
+            Cadastre-se
+          </Button>
+        </a>
+      </Link>
+      <Link href='/login'>
+        <a>
+          <Button>
+            Entre já
+          </Button>
+        </a>
+      </Link>
       </main>
     </div>
   )
