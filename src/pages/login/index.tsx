@@ -29,6 +29,9 @@ const Login: NextPage = () => {
     await login({
       email: email.trim(), 
       password: password.trim()
+    }).catch(function(error){
+      alert(error.response.data.error)
+      // Tratar erros no backend
     })
   }
 
