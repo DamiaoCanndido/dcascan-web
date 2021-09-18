@@ -1,0 +1,34 @@
+.landingContainer {
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+    flex-direction: row;
+
+    aside {
+        flex: 3;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        padding: 3rem;
+
+        img {
+            display: block;
+        }
+
+        strong {
+            font-size: 3rem;
+        }
+
+        p {
+            margin-top: 1rem;
+            font-size: 1.5rem;
+        }
+    }
+
+    main {
+        flex: 2;
+        background: var(--green-400);
+        height: 100vh;
+        width: 100vw;
+    }
+}
