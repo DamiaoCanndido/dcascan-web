@@ -1,5 +1,4 @@
 import type { NextPage } from 'next'
-import { FormEvent } from "react";
 import Link from 'next/link';
 import styles from './styles.module.scss';
 import Image from 'next/image';
@@ -7,12 +6,6 @@ import { Button } from '../../components/Button';
 
 
 const Landing: NextPage = () => {
-
-  async function handleSubmit(e: FormEvent) {
-    e.preventDefault();
-    console.log('Clicou')
-  }
-
   return (
     <div className={styles.landingContainer}>
       <aside>

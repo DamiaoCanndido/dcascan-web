@@ -1,9 +1,11 @@
 import { FormEvent, useState } from "react";
-import type { NextPage } from 'next'
+import type { GetServerSideProps, NextPage } from 'next'
 import Image from 'next/image';
 import Link from 'next/link';
 import styles from './styles.module.scss';
 import { Button } from '../../components/Button';
+import { apiServerSide } from "../../services/apiServerSide";
+import { parseCookies } from "nookies";
 
 
 const Register: NextPage = () => {
@@ -79,6 +81,26 @@ const Register: NextPage = () => {
         </Link>
     </div>
   )
+}
+
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const apiClient = apiServerSide(ctx)
+
+  const { ['access-token']: accessToken } = parseCookies(ctx)
+
+  if (accessToken) {
+    await apiClient.get('auth/user')
+    return {
+      redirect: {
+        destination: '/buckets',
+        permanent: false
+      }
+    }
+  }
+  
+  return {
+    props: {}
+  }
 }
 
 export default Register

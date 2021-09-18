@@ -3,31 +3,7 @@ import { setCookie, parseCookies } from 'nookies';
 import { api } from '../services/api';
 import Router from 'next/router';
 import recoverUser from '../services/recoverUser';
-
-type LogInData = {
-    email: string;
-    password: string;
-}
-
-type User = {
-    username: string;
-    email: string;
-}
-
-type DataResponse = {
-    username: string;
-    email: string;
-    tokens: {
-        access: string,
-        refresh: string
-    }
-}
-
-type AuthContextType = {
-    isAuthenticated: boolean;
-    user?: User;
-    login: (data: LogInData) => Promise<void>
-}
+import { AuthContextType, DataResponse, LogInData, User } from '../protocols/protocols';
 
 export interface AuthContextProviderProps {
     children: ReactNode
