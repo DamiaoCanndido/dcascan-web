@@ -124,7 +124,3 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 }
 
 export default Register
-
-function AxiosResponse<T>() {
-  throw new Error("Function not implemented.");
-}

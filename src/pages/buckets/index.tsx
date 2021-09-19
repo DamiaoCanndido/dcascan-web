@@ -3,12 +3,13 @@ import { parseCookies } from 'nookies';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 import { apiServerSide } from '../../services/apiServerSide';
+import { bucketProps } from '../../protocols/protocols';
 
 
-const Bucket: NextPage = () => {
+function Bucket({ buckets }: bucketProps) {
   return (
     <>
-      <Header />
+      <Header buckets={buckets}/>
       <Footer />
     </>
   )
@@ -28,10 +29,13 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     }
   }
 
-  await apiClient.get('auth/user')
+  // await apiClient.get('auth/user')
+  const { data } = await apiClient.get('/bucket')
   
   return {
-    props: {}
+    props: {
+      buckets: data
+    }
   }
 }
 

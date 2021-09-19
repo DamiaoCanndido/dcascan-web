@@ -2,8 +2,11 @@ import styles from './styles.module.scss';
 import Image from 'next/image';
 import Link from 'next/link';
 import { FiSettings, FiSearch } from "react-icons/fi";
+import { bucketProps } from '../../protocols/protocols';
 
-export default function Header(){
+
+export default function Header(props: bucketProps){
+    // console.log(props.buckets[1].file)
     return (
         <div className={styles.divContainer}>
             <header>
