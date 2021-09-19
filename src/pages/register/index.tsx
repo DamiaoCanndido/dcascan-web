@@ -7,6 +7,7 @@ import { Button } from '../../components/Button';
 import { apiServerSide } from "../../services/apiServerSide";
 import { parseCookies } from "nookies";
 import { api } from '../../services/api';
+import { returnAllErrors } from "../../handlers/errorRegisterHandlers";
 
 
 const Register: NextPage = () => {
@@ -42,8 +43,10 @@ const Register: NextPage = () => {
       password: password.trim(),
       confirm_password: repeatPassword.trim()
     }).catch(function(error){
-      console.log(error.response.data.errors)
-      // Tratar erros no backend
+      const registerErrors = returnAllErrors(error.response.data.errors)
+      for(let i = 0; i < registerErrors.length; i++){
+        alert(registerErrors[i][0])
+      }
     })
 
     if (res) {

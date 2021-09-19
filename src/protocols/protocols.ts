@@ -1,3 +1,9 @@
+import { ReactNode } from "react"
+
+export interface AuthContextProviderProps {
+    children: ReactNode
+}
+
 export type LogInData = {
     email: string;
     password: string;

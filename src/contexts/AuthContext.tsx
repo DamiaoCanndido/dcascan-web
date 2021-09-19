@@ -1,13 +1,10 @@
-import { createContext, ReactNode, useEffect, useState } from 'react';
+import { createContext, useEffect, useState } from 'react';
 import { setCookie, parseCookies } from 'nookies';
 import { api } from '../services/api';
 import Router from 'next/router';
 import recoverUser from '../services/recoverUser';
-import { AuthContextType, DataResponse, LogInData, User } from '../protocols/protocols';
+import { AuthContextProviderProps, AuthContextType, DataResponse, LogInData, User } from '../protocols/protocols';
 
-export interface AuthContextProviderProps {
-    children: ReactNode
-}
 
 export const AuthContext = createContext({} as AuthContextType);
 
