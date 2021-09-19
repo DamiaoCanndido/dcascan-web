@@ -6,6 +6,7 @@ import styles from './styles.module.scss';
 import { Button } from '../../components/Button';
 import { apiServerSide } from "../../services/apiServerSide";
 import { parseCookies } from "nookies";
+import { api } from '../../services/api';
 
 
 const Register: NextPage = () => {
@@ -34,7 +35,23 @@ const Register: NextPage = () => {
     if(repeatPassword.trim() === ""){
         return;
     }
+
+    const res = await api.post('auth/register/', {
+      username: name.trim(),
+      email: email.trim(),
+      password: password.trim(),
+      confirm_password: repeatPassword.trim()
+    }).catch(function(error){
+      console.log(error.response.data.errors)
+      // Tratar erros no backend
+    })
+
+    if (res) {
+      alert('Verifique seu e-mail.')
+    }
   }
+
+  
 
   return (
     <div className={styles.registerContainer}>
@@ -104,3 +121,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 }
 
 export default Register
+
+function AxiosResponse<T>() {
+  throw new Error("Function not implemented.");
+}
