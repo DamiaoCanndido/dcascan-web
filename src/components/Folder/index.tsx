@@ -4,18 +4,10 @@ import { AiFillFolder } from "react-icons/ai";
 
 export default function Folder() {
     return (
-        <div className={styles.folderContainer}>
-            <Link href='#'>
-                <a>
-                    <div>
-                        <AiFillFolder 
-                            size={75}
-                            color='var(--green-500)'
-                        /> 
-                        <p>Nome da pasta</p>
-                    </div>
-                </a>
-            </Link>
+        <div className={styles.homePage}>
+            <section className={styles.myBucket}>
+                <ul></ul>
+            </section>
         </div>
     )
 }
