@@ -4,14 +4,14 @@ import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 import { apiServerSide } from '../../services/apiServerSide';
 import { bucketProps } from '../../protocols/protocols';
-import Folder from '../../components/Folder';
+import Bucket from '../../components/Bucket';
 
 
 function Home({ buckets }: bucketProps) {
   return (
     <>
       <Header buckets={buckets}/>
-      <Folder/>
+      <Bucket/>
       <Footer />
     </>
   )
