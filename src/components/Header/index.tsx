@@ -5,8 +5,8 @@ import { FiSettings, FiSearch } from "react-icons/fi";
 import { bucketProps } from '../../protocols/protocols';
 
 
-export default function Header(props: bucketProps){
-    // console.log(props.buckets[1].file)
+export default function Header({ buckets}: bucketProps){
+    // console.log(buckets[1].file)
     return (
         <div className={styles.divContainer}>
             <header>

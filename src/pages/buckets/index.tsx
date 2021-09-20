@@ -1,15 +1,17 @@
-import type { GetServerSideProps, NextPage } from 'next';
+import type { GetServerSideProps } from 'next';
 import { parseCookies } from 'nookies';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 import { apiServerSide } from '../../services/apiServerSide';
 import { bucketProps } from '../../protocols/protocols';
+import Folder from '../../components/Folder';
 
 
 function Bucket({ buckets }: bucketProps) {
   return (
     <>
       <Header buckets={buckets}/>
+      <Folder/>
       <Footer />
     </>
   )
