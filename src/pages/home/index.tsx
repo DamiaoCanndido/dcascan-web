@@ -7,7 +7,7 @@ import { bucketProps } from '../../protocols/protocols';
 import Folder from '../../components/Folder';
 
 
-function Bucket({ buckets }: bucketProps) {
+function Home({ buckets }: bucketProps) {
   return (
     <>
       <Header buckets={buckets}/>
@@ -41,4 +41,4 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   }
 }
 
-export default Bucket
+export default Home
