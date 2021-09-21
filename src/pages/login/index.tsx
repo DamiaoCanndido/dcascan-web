@@ -81,7 +81,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     await apiClient.get('auth/user')
     return {
       redirect: {
-        destination: '/buckets',
+        destination: '/home',
         permanent: false
       }
     }

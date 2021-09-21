@@ -39,7 +39,7 @@ export function AuthProvider(props: AuthContextProviderProps) {
 
         setUser({ username: response.username, email: response.email })
         
-        Router.replace('/buckets');
+        Router.replace('/home');
     }
 
     return (

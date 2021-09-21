@@ -10,9 +10,9 @@ import Bucket from '../../components/Bucket';
 function Home({ buckets }: bucketProps) {
   return (
     <>
-      <Header buckets={buckets}/>
-      <Bucket/>
-      <Footer />
+      <Header />
+      <Bucket buckets={buckets}/>
+      <Footer/>
     </>
   )
 }
