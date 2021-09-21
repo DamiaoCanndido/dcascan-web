@@ -3,22 +3,21 @@
     align-items: center;
     justify-content: center;
 
-    a {
-        display: block;
-        color: var(--gray-800);
-        font-family: Lexend, sans-serif;
-        font-weight: 600;
-        text-decoration: none;
-        line-height: 1.4rem;
+    .iconFolder {
+        flex: 1;
+        width: 100%;
+        border-radius: 5px;
+        align-items: center;
+        justify-content: center;
+    }
 
-        &:hover {
-            text-decoration: underline;
-        }
-
+    .textFolder {
+        flex: 1;
         p {
-            white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
+            text-align: center;
+            white-space: nowrap;
         }
     }
 }

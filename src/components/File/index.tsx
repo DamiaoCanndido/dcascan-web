@@ -1,20 +1,17 @@
 import { folderFileTypes } from "../../protocols/protocols";
-import style from './styles.module.scss';
-import Link from 'next/link';
+import styles from './styles.module.scss';
 import { AiFillFilePdf } from "react-icons/ai";
+
 
 export default function File(props: folderFileTypes){
     return (
-        <div className={style.fileContainer}>
-            <Link href='#'>
-                <a>
-                    <AiFillFilePdf
-                        size='5rem'
-                        color='var(--pdf)'
-                    />
-                    <p>{props.name}</p>
-                </a>
-            </Link>
+        <div className={styles.fileContainer}>
+            <div className={styles.iconFile}>
+                <AiFillFilePdf size='3rem' color='var(--pdf)'/>
+            </div>
+            <div className={styles.textFile}>
+                <p>{props.name}</p>
+            </div> 
         </div>
     )
 }

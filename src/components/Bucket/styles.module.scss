@@ -8,17 +8,24 @@
     ul {
         list-style: none;
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(12rem, 1fr));
         gap: 1.5rem;
 
-        li {
-            background: var(--white);
-            border: 1px solid var(--gray-100);
-            padding: 1.25rem;
-            border-radius: 1rem;
-            position: relative;
-            display: flex;
-            align-items: center;
+        a {
+            display: block;
+            color: var(--gray-800);
+            font-family: Lexend, sans-serif;
+            font-weight: 600;
+            text-decoration: none;
+            line-height: 1.4rem;
+
+            li {
+                background: var(--white);
+                border: 1px solid var(--gray-100);
+                padding: 0.5rem;
+                border-radius: 0.4rem;
+                display: flex;
+                align-items: center;
+            }
         }
     }
 }
