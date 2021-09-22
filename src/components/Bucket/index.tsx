@@ -24,7 +24,7 @@ export default function Bucket({ buckets }: bucketProps) {
                                             <AiFillFolder size='3rem' color='var(--folder)'/>
                                         </td>
                                         <td>
-                                            <Link href='#'>
+                                            <Link href={`/home/${bucket.id}`}>
                                                 <a>
                                                 {bucket.name}
                                                 </a>
@@ -41,7 +41,7 @@ export default function Bucket({ buckets }: bucketProps) {
                                             <AiFillFilePdf size='3rem' color='var(--pdf)'/>
                                         </td>
                                         <td>
-                                            <Link href='#'>
+                                            <Link href={bucket.file}>
                                                 <a>
                                                     {bucket.name}
                                                 </a>
