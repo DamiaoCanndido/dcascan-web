@@ -5,35 +5,38 @@
 }
 
 .myBucket {
-    
-}
+    padding-bottom: 2rem;
 
-/*
-ul {
-    list-style: none;
-    display: grid;
-    gap: 1.5rem;
+    table {
+        width: 100%;
 
-    a {
-        display: block;
-        color: var(--gray-800);
-        font-family: Lexend, sans-serif;
-        font-weight: 600;
-        text-decoration: none;
-        line-height: 1.4rem;
-
-        &:hover {
-            text-decoration: underline;
+        th, td {
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid var(--gray-100);
         }
 
-        li {
-            background: var(--white);
-            border: 1px solid var(--black);
-            padding: 0.5rem;
-            border-radius: 0.4rem;
-            display: flex;
-            align-items: center;
+        th {
+            color: var(--gray-800);
+            text-transform: uppercase;
+            font: 500 0.75rem Lexend, sans-serif;
+            text-align: left;
+        }
+
+        td {
+            font-size: 0.875rem;
+        }
+
+        a {
+            font-size: 1rem;
+            color: var(--gray-800);
+            font-family: Lexend, sans-serif;
+            font-weight: 600;
+            text-decoration: none;
+            line-height: 1.4rem;
+    
+            &:hover {
+                text-decoration: underline;
+            } 
         }
     }
 }
-*/
