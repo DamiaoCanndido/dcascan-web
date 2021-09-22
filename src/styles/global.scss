@@ -14,7 +14,7 @@
     --gray-800: #494D4B;
     --black: #000000;
 
-    --green-100: #90c2e7;
+    --green-100: #d0fdd8;
     --green-300: #4e8098;
     --green-400: #00a9a5;
     --green-500: #0b5351;
@@ -61,4 +61,24 @@ h2 {
 
 button {
     cursor: pointer;
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 0.5rem;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: var(--white);
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: var(--green-400);
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: var(--green-800);
 }
