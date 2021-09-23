@@ -10,10 +10,12 @@ export default function Bucket({ buckets }: bucketProps) {
             <section className={styles.myBucket}>
                 <table cellSpacing={0}>
                     <thead>
-                        <th></th>
-                        <th>Nome</th>
-                        <th>Modificado em</th>
-                        <th>Criado em</th>
+                        <tr>
+                            <th></th>
+                            <th>Nome</th>
+                            <th>Modificado em</th>
+                            <th>Criado em</th>
+                        </tr>
                     </thead>
                     <tbody>
                         {buckets.map(bucket => {
