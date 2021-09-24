@@ -37,6 +37,11 @@ const Register: NextPage = () => {
         return;
     }
 
+    if(password.trim() !== repeatPassword.trim()){
+      alert('As senhas são diferentes.')
+      return;
+    }
+
     const res = await api.post('auth/register/', {
       username: name.trim(),
       email: email.trim(),

@@ -3,11 +3,14 @@ import type { GetServerSideProps, NextPage } from 'next'
 import Image from 'next/image';
 import Link from 'next/link';
 import styles from './styles.module.scss';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.min.css';
 import { Button } from '../../components/Button';
 import { useContext } from 'react';
 import { AuthContext } from '../../contexts/AuthContext';
 import { apiServerSide } from "../../services/apiServerSide";
 import { parseCookies } from "nookies";
+import { errorToast } from "../../handlers/Toast";
 
 
 const Login: NextPage = () => {
@@ -24,21 +27,22 @@ const Login: NextPage = () => {
         return;
     }
 
-    if(password.trim() === ""){
+    if(password.trim() === "" || password.trim().length < 6){
         return;
     }
 
-    await login({
+    const res = await login({
       email: email.trim(), 
       password: password.trim()
     }).catch(function(error){
-      alert(error.response.data.error)
+      errorToast(error.response.data.errors.detail)
       // Tratar erros no backend
     })
   }
 
   return (
     <div className={styles.loginContainer}>
+        <ToastContainer/>
         <Image
             src="/TomK32-Paperboat.svg"
             alt="DCAlogo"
