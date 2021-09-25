@@ -1,5 +1,6 @@
 import styles from './styles.module.scss';
 import Link from 'next/link';
+import { Dropzone } from '../Dropzone';
 import { bucketProps } from '../../protocols/protocols';
 import { AiFillFolder, AiFillFilePdf } from "react-icons/ai";
 
@@ -7,6 +8,7 @@ import { AiFillFolder, AiFillFilePdf } from "react-icons/ai";
 export default function Bucket({ buckets }: bucketProps) {
     return (
         <div className={styles.homePage}>
+            <Dropzone/>
             <section className={styles.myBucket}>
                 <table cellSpacing={0}>
                     <thead>

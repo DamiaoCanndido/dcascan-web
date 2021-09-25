@@ -3,6 +3,9 @@ import type { GetServerSideProps, NextPage } from 'next'
 import Image from 'next/image';
 import Link from 'next/link';
 import styles from './styles.module.scss';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.min.css';
+import { errorToast, successToast } from "../../handlers/Toast";
 import { Button } from '../../components/Button';
 import { apiServerSide } from "../../services/apiServerSide";
 import { parseCookies } from "nookies";
@@ -37,11 +40,6 @@ const Register: NextPage = () => {
         return;
     }
 
-    if(password.trim() !== repeatPassword.trim()){
-      alert('As senhas são diferentes.')
-      return;
-    }
-
     const res = await api.post('auth/register/', {
       username: name.trim(),
       email: email.trim(),
@@ -50,12 +48,12 @@ const Register: NextPage = () => {
     }).catch(function(error){
       const registerErrors = returnAllErrors(error.response.data.errors)
       for(let i = 0; i < registerErrors.length; i++){
-        alert(registerErrors[i][0])
+        errorToast(registerErrors[i][0])
       }
     })
 
     if (res) {
-      alert('Verifique seu e-mail.')
+      successToast('Verifique seu e-mail.')
     }
   }
 
@@ -63,6 +61,7 @@ const Register: NextPage = () => {
 
   return (
     <div className={styles.registerContainer}>
+        <ToastContainer/>
         <Image
             src="/TomK32-Paperboat.svg"
             alt="DCAlogo"
@@ -117,7 +116,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     await apiClient.get('auth/user')
     return {
       redirect: {
-        destination: '/buckets',
+        destination: '/home',
         permanent: false
       }
     }

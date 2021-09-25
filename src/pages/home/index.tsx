@@ -1,7 +1,6 @@
 import type { GetServerSideProps } from 'next';
 import { parseCookies } from 'nookies';
 import Header from '../../components/Header';
-import Footer from '../../components/Footer';
 import { apiServerSide } from '../../services/apiServerSide';
 import { bucketProps } from '../../protocols/protocols';
 import Bucket from '../../components/Bucket';
@@ -12,7 +11,6 @@ function Home({ buckets }: bucketProps) {
     <>
       <Header />
       <Bucket buckets={buckets}/>
-      <Footer/>
     </>
   )
 }

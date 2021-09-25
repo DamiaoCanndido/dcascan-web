@@ -28,6 +28,7 @@ const Login: NextPage = () => {
     }
 
     if(password.trim() === "" || password.trim().length < 6){
+        errorToast('Senha curta.')
         return;
     }
 

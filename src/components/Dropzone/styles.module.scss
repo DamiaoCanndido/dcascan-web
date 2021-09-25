@@ -1,0 +1,12 @@
+.myDropZone {
+    background-color: var(--white);
+    height: 10rem;
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 1rem;
+    border: 2px dashed var(--gray-800);
+    cursor: pointer;
+    transition: height 0.4s ease;
+}
