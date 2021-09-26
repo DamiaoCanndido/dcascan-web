@@ -1,21 +1,21 @@
-import React, {useCallback} from 'react'
+import {Dispatch, FunctionComponent, SetStateAction, useCallback} from 'react'
 import {useDropzone} from 'react-dropzone'
 import styles from './styles.module.scss';
 
 
-export function Dropzone(){
+export const Dropzone: FunctionComponent<{setFile: Dispatch<SetStateAction<any[]>>}> = ({setFile}) => {
 
     const onDrop = useCallback(acceptedFiles => {
-        console.log(acceptedFiles)
-      }, [])
-      const {getRootProps, getInputProps, isDragActive} = useDropzone({onDrop})
+        setFile(acceptedFiles)
+      }, [setFile])
+      const {getRootProps, getInputProps, isDragActive, isDragAccept, isDragReject} = useDropzone({onDrop, accept: 'application/pdf'})
 
     return (
         <section {...getRootProps()} className={styles.myDropZone}>
             <input {...getInputProps()} />
             {
-                isDragActive ?
-                <p>Solte os arquivos aqui...</p> :
+                isDragReject ?
+                <p>Somente arquivos pdf.</p> :
                 <p>Arraste e solte os arquivos aqui, ou clique aqui para selecionar os arquivos</p>
             }
         </section>
