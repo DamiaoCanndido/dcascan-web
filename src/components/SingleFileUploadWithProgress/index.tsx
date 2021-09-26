@@ -1,6 +1,10 @@
-import { useEffect, useState } from "react"
+import React, { useEffect, useState } from "react"
 import { useRouter } from 'next/router';
 import { api } from '../../services/api';
+import styles from './styles.module.scss';
+import { CircularProgressbar } from 'react-circular-progressbar';
+import 'react-circular-progressbar/dist/styles.css';
+
 
 export type SingleFileUploadWithProgressProps = {
     file: File
@@ -42,7 +46,10 @@ export function SingleFileUploadWithProgress({file}: SingleFileUploadWithProgres
     }, [file, router.query.uuid])
 
     return (
-        <div>SFU - {progress}</div>
+        <div className={styles.myProgressBar}>
+            <p>{file.name}</p>
+            <CircularProgressbar value={progress} text={`${progress}%`}/>
+        </div>
     )
 }
 
