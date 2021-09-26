@@ -1,23 +1,16 @@
 import styles from './styles.module.scss';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useState, useEffect, SetStateAction } from 'react';
 import { Dropzone } from '../Dropzone';
 import { bucketProps } from '../../protocols/protocols';
 import { AiFillFolder, AiFillFilePdf } from "react-icons/ai";
+import { FileError } from 'react-dropzone';
 
 
 export default function Bucket({ buckets }: bucketProps) {
-
-    const [file, setFile] = useState([]);
-
     return (
         <div className={styles.homePage}>
-            <Dropzone setFile={setFile}/>
-            {file.map(fl => {
-                return (
-                    <p key={fl.name}>{fl.name}</p>
-                )
-            })}
+            <Dropzone/>
             <section className={styles.myBucket}>
                 <table cellSpacing={0}>
                     <thead>

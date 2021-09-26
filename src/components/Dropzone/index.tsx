@@ -1,23 +1,39 @@
-import {Dispatch, FunctionComponent, SetStateAction, useCallback} from 'react'
-import {useDropzone} from 'react-dropzone'
+import {Dispatch, FunctionComponent, SetStateAction, useCallback, useState} from 'react'
+import {FileError, FileRejection, useDropzone} from 'react-dropzone'
+import { SingleFileUploadWithProgress } from '../SingleFileUploadWithProgress';
 import styles from './styles.module.scss';
 
 
-export const Dropzone: FunctionComponent<{setFile: Dispatch<SetStateAction<any[]>>}> = ({setFile}) => {
+type uploadbleFiles = {
+    file: File
+    errors: FileError[]
+}
 
-    const onDrop = useCallback(acceptedFiles => {
-        setFile(acceptedFiles)
-      }, [setFile])
-      const {getRootProps, getInputProps, isDragActive, isDragAccept, isDragReject} = useDropzone({onDrop, accept: 'application/pdf'})
+
+export const Dropzone = () => {
+
+    const [files, setFiles] = useState<uploadbleFiles[]>([])
+
+    const onDrop = useCallback((acceptedFiles: File[], rejectFiles: FileRejection[]) => {
+        const mappedAcc = acceptedFiles.map((file) => ({ file, errors: [] }))
+        setFiles((curr) => [...curr, ...mappedAcc, ...rejectFiles])
+      }, [setFiles])
+
+      const {getRootProps, getInputProps, isDragReject } = useDropzone({onDrop, accept: 'application/pdf'})
 
     return (
-        <section {...getRootProps()} className={styles.myDropZone}>
-            <input {...getInputProps()} />
-            {
-                isDragReject ?
-                <p>Somente arquivos pdf.</p> :
-                <p>Arraste e solte os arquivos aqui, ou clique aqui para selecionar os arquivos</p>
-            }
-        </section>
+        <>
+            <section {...getRootProps()} className={styles.myDropZone}>
+                <input {...getInputProps()} />
+                {
+                    isDragReject ?
+                    <p>Somente arquivos pdf.</p> :
+                    <p>Arraste e solte os arquivos aqui, ou clique aqui para selecionar os arquivos</p>
+                }
+            </section>
+            {files.map((fileWrapper, index) => (
+                <SingleFileUploadWithProgress file={fileWrapper.file} key={index}/>
+            ))}
+        </>
     )
 }
