@@ -48,7 +48,7 @@ export function SingleFileUploadWithProgress({file}: SingleFileUploadWithProgres
     return (
         <div className={styles.myProgressBar}>
             <p>{file.name}</p>
-            <CircularProgressbar value={progress} text={`${progress}%`}/>
+            <CircularProgressbar className={styles.circular} value={progress} text={`${progress}%`}/>
         </div>
     )
 }
