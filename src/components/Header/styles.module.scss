@@ -6,6 +6,22 @@
         align-items: center;
         padding: 2rem 4rem;
         border-bottom: 1px solid var(--gray-800);
+        min-width: 360px;
+
+        a {
+            display: block;
+            img {
+                height: 7rem;
+                width: 7rem;
+                min-width: 4.5rem;
+            }
+        }
+
+        @media (max-width: 440px) {
+            a {
+                display: none;
+            }
+        }
     
         form {
             margin-left: auto;
@@ -30,6 +46,7 @@
             height: 3rem;
             background-color: transparent;
             border: none;
+            cursor: pointer;
         }
     }
 }

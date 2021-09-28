@@ -37,7 +37,6 @@ const Login: NextPage = () => {
       password: password.trim()
     }).catch(function(error){
       errorToast(error.response.data.errors.detail)
-      // Tratar erros no backend
     })
   }
 

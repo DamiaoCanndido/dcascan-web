@@ -1,5 +1,4 @@
 import Header from '../../components/Header';
-import Footer from '../../components/Footer';
 import Bucket from '../../components/Bucket';
 import { GetServerSideProps } from 'next';
 import { apiServerSide } from '../../services/apiServerSide';
@@ -12,7 +11,6 @@ export default function folderContent({ buckets }: bucketProps){
         <>
             <Header />
             <Bucket buckets={buckets}/>
-            <Footer/>
         </>
     )
 }
