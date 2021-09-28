@@ -4,12 +4,14 @@
         height: 6.5rem;
         display: flex;
         align-items: center;
+        justify-content: space-around;
         padding: 2rem 4rem;
         border-bottom: 1px solid var(--gray-800);
         min-width: 360px;
 
         a {
-            display: block;
+            display: flex;
+            margin-right: 1rem;
             img {
                 height: 7rem;
                 width: 7rem;
@@ -24,9 +26,9 @@
         }
     
         form {
+            display: flex;
             margin-left: auto;
             margin-right: auto;
-            display: flex;
             input {
                 margin-right: 0.5rem;
                 padding: 0.4rem;

@@ -1,7 +1,8 @@
 import styles from './styles.module.scss';
 import Image from 'next/image';
 import Link from 'next/link';
-import { FiSettings, FiSearch } from "react-icons/fi";
+import { FiSearch } from "react-icons/fi";
+import { FaBars } from "react-icons/fa";
 
 
 export default function Header(){
@@ -28,7 +29,7 @@ export default function Header(){
                     </button>
                 </form>
                 <button>
-                    <FiSettings
+                    <FaBars
                         color='var(--white)'
                         size={25}
                     />
