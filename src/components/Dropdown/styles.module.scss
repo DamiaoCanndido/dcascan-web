@@ -1,0 +1,26 @@
+.dropDownMenu {
+    width: auto;
+    position: absolute;
+    top: 6.5rem;
+    right: 0;
+    list-style: none;
+    text-align: start;
+
+    li {
+        background: var(--green-500);
+
+        div {
+            display: flex;
+            width: 10rem;
+            text-decoration: none;
+            color: var(--white);
+            padding: 1rem;
+            justify-content: center;
+            align-items: center;
+        }
+    }
+
+    li:hover {
+        background: var(--green-300);
+    }
+}

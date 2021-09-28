@@ -1,11 +1,18 @@
 import styles from './styles.module.scss';
 import Image from 'next/image';
 import Link from 'next/link';
+import { Dropdown } from '../Dropdown';
 import { FiSearch } from "react-icons/fi";
-import { FaBars } from "react-icons/fa";
+import { FaBars, FaTimes } from "react-icons/fa";
+import { useState } from 'react';
 
 
 export default function Header(){
+
+    const [click, setClick] = useState(false);
+
+    const handleClick = () => setClick(!click);
+
     return (
         <div className={styles.divContainer}>
             <header>
@@ -28,11 +35,20 @@ export default function Header(){
                         />
                     </button>
                 </form>
-                <button>
-                    <FaBars
-                        color='var(--white)'
-                        size={25}
-                    />
+                <button className={styles.dropButton} onClick={handleClick}>
+                    {click ? 
+                        <div>
+                            <FaTimes
+                                color='var(--white)'
+                                size={25}
+                            />
+                            {click && <Dropdown/>}
+                        </div> :
+                        <FaBars
+                            color='var(--white)'
+                            size={25}
+                        />
+                    }
                 </button>
             </header>
         </div>
