@@ -7,6 +7,9 @@ export function apiServerSide(ctx?: any) {
 
     const api = axios.create({
         baseURL: 'http://127.0.0.1:8000',
+        // 'http://127.0.0.1:8000'
+        // 'http://192.168.1.11:8000'
+        // 'http://192.168.1.5:8000'
     });
 
     if (accessToken) {
