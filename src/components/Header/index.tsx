@@ -5,6 +5,7 @@ import { Dropdown } from '../Dropdown';
 import { FiSearch } from "react-icons/fi";
 import { FaBars, FaTimes } from "react-icons/fa";
 import { useState } from 'react';
+import { AiFillFolder } from 'react-icons/ai';
 
 
 export default function Header(){
@@ -26,8 +27,14 @@ export default function Header(){
                         />
                     </a>
                 </Link>
+                <button className={styles.addFolder}>
+                    <AiFillFolder 
+                        size={30} 
+                        color='var(--green-500)'
+                    />
+                </button>
                 <form>
-                    <input placeholder='Pesquisar...'/>
+                    <input placeholder='Em desenvolvimento...'/>
                     <button>
                         <FiSearch
                             color='var(--white)'

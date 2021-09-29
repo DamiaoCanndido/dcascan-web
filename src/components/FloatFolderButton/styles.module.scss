@@ -1,0 +1,17 @@
+.floatButton {
+    display: none;
+    position: absolute;
+    bottom: 2rem;
+    right: 2rem;
+    height: 5rem;
+    width: 5rem;
+    border-radius: 2.5rem;
+    border: 1px solid var(--green-500);
+    background-color: var(--green-500);
+}
+
+@media (max-width: 540px) {
+    .floatButton {
+        display: block;
+    }
+}

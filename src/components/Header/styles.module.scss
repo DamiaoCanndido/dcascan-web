@@ -10,7 +10,6 @@
         min-width: 360px;
 
         a {
-            display: flex;
             margin-right: 1rem;
             img {
                 height: 7rem;
@@ -19,8 +18,29 @@
             }
         }
 
-        @media (max-width: 440px) {
+        .addFolder {
+            height: 3.5rem;
+            width: 5.5rem;
+            background-color: var(--green-100);
+            margin-right: 1rem;
+            border-radius: 0.75rem;
+            border: 1px solid var(--black);
+        }
+
+        .addFolder:hover {
+            border: 1px solid var(--white);
+            background-color: var(--green-300);
+
+            icon {
+                background-color: var(--white);
+            }
+        }
+
+        @media (max-width: 540px) {
             a {
+                display: none;
+            }
+            .addFolder {
                 display: none;
             }
         }

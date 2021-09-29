@@ -1,10 +1,9 @@
 import styles from './styles.module.scss';
 import Link from 'next/link';
-import { useState, useEffect, SetStateAction } from 'react';
 import { Dropzone } from '../Dropzone';
 import { bucketProps } from '../../protocols/protocols';
 import { AiFillFolder, AiFillFilePdf } from "react-icons/ai";
-import { FileError } from 'react-dropzone';
+import { FloatFolderButton } from '../FloatFolderButton';
 
 
 export default function Bucket({ buckets }: bucketProps) {
@@ -61,6 +60,7 @@ export default function Bucket({ buckets }: bucketProps) {
                         })}
                     </tbody>
                 </table>
+                <FloatFolderButton/>
             </section>
         </div>
     )
