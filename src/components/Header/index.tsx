@@ -6,13 +6,16 @@ import { FiSearch } from "react-icons/fi";
 import { FaBars, FaTimes } from "react-icons/fa";
 import { useState } from 'react';
 import { AiFillFolder } from 'react-icons/ai';
+import { FolderModal } from '../FolderModal';
 
 
 export default function Header(){
 
     const [click, setClick] = useState(false);
+    const [isModalVisible, setIsModalVisible] = useState(false);
 
     const handleClick = () => setClick(!click);
+    const handleModal = () => setIsModalVisible(!isModalVisible);
 
     return (
         <div className={styles.divContainer}>
@@ -27,12 +30,13 @@ export default function Header(){
                         />
                     </a>
                 </Link>
-                <button className={styles.addFolder}>
+                <button onClick={handleModal} className={styles.addFolder}>
                     <AiFillFolder 
                         size={30} 
                         color='var(--green-500)'
                     />
                 </button>
+                {isModalVisible ? <FolderModal/> : null}
                 <form>
                     <input placeholder='Em desenvolvimento...'/>
                     <button>

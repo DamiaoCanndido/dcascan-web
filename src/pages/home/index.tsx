@@ -9,7 +9,7 @@ import Bucket from '../../components/Bucket';
 function Home({ buckets }: bucketProps) {
   return (
     <>
-      <Header />
+      <Header/>
       <Bucket buckets={buckets}/>
     </>
   )
