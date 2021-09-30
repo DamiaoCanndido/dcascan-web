@@ -1,13 +1,22 @@
 .floatButton {
     display: none;
     position: absolute;
-    bottom: 2rem;
-    right: 2rem;
+    bottom: 1.5rem;
+    right: 1.5rem;
     height: 5rem;
     width: 5rem;
     border-radius: 2.5rem;
     border: 1px solid var(--green-500);
     background-color: var(--green-500);
+}
+
+.floatButton:hover {
+    border: 1px solid var(--white);
+    background-color: var(--green-300);
+
+    icon {
+        background-color: var(--white);
+    }
 }
 
 @media (max-width: 540px) {

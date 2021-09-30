@@ -1,4 +1,6 @@
 .divContainer {
+    min-width: 360px;
+    
     header {
         background: var(--green-500);
         height: 6.5rem;
@@ -7,7 +9,6 @@
         justify-content: space-around;
         padding: 2rem 4rem;
         border-bottom: 1px solid var(--gray-800);
-        min-width: 360px;
 
         a {
             margin-right: 1rem;
