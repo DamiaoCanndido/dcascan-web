@@ -4,9 +4,10 @@ import Link from 'next/link';
 import { Dropdown } from '../Dropdown';
 import { FiSearch } from "react-icons/fi";
 import { FaBars, FaTimes } from "react-icons/fa";
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { AiFillFolder } from 'react-icons/ai';
 import { FolderModal } from '../FolderModal';
+import { FloatFolderButton } from '../FloatFolderButton';
 
 
 export default function Header(){
@@ -36,7 +37,7 @@ export default function Header(){
                         color='var(--green-500)'
                     />
                 </button>
-                {isModalVisible ? <FolderModal/> : null}
+                {isModalVisible ? <FolderModal modalFunc={handleModal}/> : null}
                 <form>
                     <input placeholder='Em desenvolvimento...'/>
                     <button>
@@ -62,6 +63,7 @@ export default function Header(){
                     }
                 </button>
             </header>
+            <FloatFolderButton modalFunc={handleModal} />
         </div>
     );
 }

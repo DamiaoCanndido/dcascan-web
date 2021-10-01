@@ -60,7 +60,6 @@ export default function Bucket({ buckets }: bucketProps) {
                         })}
                     </tbody>
                 </table>
-                <FloatFolderButton/>
             </section>
         </div>
     )

@@ -1,12 +1,26 @@
-import { NextPage } from "next";
+import { FormEvent } from "react";
 import styles from './styles.module.scss';
 
+type modalFunc = {
+    modalFunc: () => void;
+    id?: string
+}
 
-export const FolderModal: NextPage = () => {
+export function FolderModal({ modalFunc = () => {}, id = 'modal' }: modalFunc) {
+
+    async function handleSubmit(e: FormEvent) {
+        e.preventDefault();
+        console.log("CRIOU PASTA COM SUCESSO")
+    }
+
+    async function handleOutSideClick(e: FormEvent) {
+        if ((e.target as Element).id === id) modalFunc() 
+    }
+
     return (
-        <div className={styles.shadowZone}>
+        <div id={id} className={styles.shadowZone} onClick={handleOutSideClick}>
             <div className={styles.modalContainer}>
-                <form onSubmit={()=>{}}>
+                <form onSubmit={handleSubmit}>
                     <input 
                         type="text" 
                         placeholder="Nova pasta..."
@@ -14,10 +28,10 @@ export const FolderModal: NextPage = () => {
                         value={''}
                     />
                     <div className={styles.modalButtons}>
-                        <button type="submit">
+                        <button className={styles.create} type="submit">
                             Criar
                         </button>
-                        <button>
+                        <button onClick={modalFunc} className={styles.cancel} type="button">
                             Fechar
                         </button>
                     </div>
