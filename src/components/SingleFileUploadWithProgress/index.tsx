@@ -31,8 +31,7 @@ export function SingleFileUploadWithProgress({file}: SingleFileUploadWithProgres
                   const calcProgress = Math.round((e.loaded)*100/e.total)
                   setProgress(calcProgress)
                 }
-              }
-              ).catch(function(error){
+              }).catch(function(error){
                   console.log(error)
               })
             // if (folder !== undefined) {

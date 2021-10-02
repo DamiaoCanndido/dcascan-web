@@ -1,16 +1,48 @@
 import { FormEvent } from "react";
+import { useRouter } from 'next/router';
+import { useEffect, useState } from "react";
 import styles from './styles.module.scss';
+import { api } from "../../services/api";
 
 type modalFunc = {
     modalFunc: () => void;
     id?: string
 }
 
+type data = {
+    name: string;
+    root?: string;
+}
+
 export function FolderModal({ modalFunc = () => {}, id = 'modal' }: modalFunc) {
 
+    const [name, setName] = useState('');
+    const router = useRouter();
+
     async function handleSubmit(e: FormEvent) {
+
         e.preventDefault();
-        console.log("CRIOU PASTA COM SUCESSO")
+
+        if(name.trim() === ""){
+            return;
+        }
+
+        const folder = router.query.uuid as string;
+
+        const createFolder = async () => {
+            let data: data = {name: name.trim()}
+
+            if (folder !== undefined) {
+                data.root = folder.trim();
+            }
+
+            await api.post('folder/', data)
+            .catch(function(error){
+                console.log(error)
+            })
+        }
+
+        createFolder();
     }
 
     async function handleOutSideClick(e: FormEvent) {
@@ -24,8 +56,8 @@ export function FolderModal({ modalFunc = () => {}, id = 'modal' }: modalFunc) {
                     <input 
                         type="text" 
                         placeholder="Nova pasta..."
-                        onChange={(e) => {}}
-                        value={''}
+                        onChange={(e) => setName(e.target.value)}
+                        value={name}
                     />
                     <div className={styles.modalButtons}>
                         <button className={styles.create} type="submit">
