@@ -23,17 +23,22 @@ export function AuthProvider(props: AuthContextProviderProps) {
         }
     }, [])
 
-    async function login({ email, password }: LogInData){
+    async function login({ email, password, rememberPassword }: LogInData){
         const { data } = await api.post('auth/login/', {email, password})
         const response: DataResponse = data
         
 
-        setCookie(undefined, 'refresh-token', response.tokens.refresh, {
-            maxAge: 60 * 60 * 48 // 2 dias
-        })
-        setCookie(undefined, 'access-token', response.tokens.access, {
-            maxAge: 900 // 15 minutos
-        })
+        if (rememberPassword) {
+            setCookie(undefined, 'refresh-token', response.tokens.refresh, {
+                maxAge: 60 * 60 * 48 // 2 dias
+            })
+            setCookie(undefined, 'access-token', response.tokens.access, {
+                maxAge: 900 // 15 minutos
+            })
+        } else {
+            setCookie(undefined, 'refresh-token', response.tokens.refresh)
+            setCookie(undefined, 'access-token', response.tokens.access)
+        }
 
         api.defaults.headers['Authorization'] = `Bearer ${response.tokens.access}`
 

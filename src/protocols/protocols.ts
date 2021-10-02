@@ -7,6 +7,7 @@ export interface AuthContextProviderProps {
 export type LogInData = {
     email: string;
     password: string;
+    rememberPassword: boolean; 
 }
 
 export type User = {

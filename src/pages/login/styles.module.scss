@@ -25,6 +25,26 @@
             border: 0.1rem solid var(--gray-500);
         }
 
+        .areaCheck {
+            display: flex;
+            align-items: flex-start;
+            justify-content: flex-start;
+            flex-direction: row;
+        
+            .areaTitleCheck {
+                text-align: left;
+                font-weight: bold;
+                font-size: 1rem;
+                white-space: nowrap;
+                padding-right: 0.5rem;
+            }
+        
+            .checkInput {
+                height: 1.2rem;
+                width: 1.2rem;
+            }
+        }
+
         button {
             margin-top: 1rem;
         }
@@ -43,3 +63,4 @@
         }
     }
 }
+

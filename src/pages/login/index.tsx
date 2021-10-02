@@ -17,27 +17,36 @@ const Login: NextPage = () => {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [disabled, setDisabled] = useState(false);
+  const [rememberPassword, setRememberPassword] = useState(false);
 
   const { login } = useContext(AuthContext);
 
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
+    setDisabled(true);
 
     if(email.trim() === ""){
+        errorToast('E-mail em branco ou inválido.')
+        setDisabled(false);
         return;
     }
 
     if(password.trim() === "" || password.trim().length < 6){
         errorToast('Senha curta.')
+        setDisabled(false);
         return;
     }
 
     const res = await login({
       email: email.trim(), 
-      password: password.trim()
+      password: password.trim(),
+      rememberPassword
     }).catch(function(error){
       errorToast(error.response.data.errors.detail)
     })
+
+    setDisabled(false);
   }
 
   return (
@@ -51,19 +60,35 @@ const Login: NextPage = () => {
         />
         <h2>Entrar</h2>
         <form onSubmit={handleSubmit}>
+
           <input 
             type="email" 
             placeholder="E-mail"
             onChange={(e) => setEmail(e.target.value)}
             value={email}
+            disabled={disabled}
           />
+
           <input 
             type="password" 
             placeholder="Senha"
             onChange={(e) => setPassword(e.target.value)}
             value={password}
+            disabled={disabled}
           />
-          <Button type="submit">
+
+          <div className={styles.areaCheck}>
+            <div className={styles.areaTitleCheck}>Lembrar senha</div>
+            <input
+              className={styles.checkInput}
+              type="checkbox"
+              disabled={disabled}
+              checked={rememberPassword}
+              onChange={() => setRememberPassword(!rememberPassword)}
+            />
+          </div>
+
+          <Button type="submit" disabled={disabled}>
               Entrar
           </Button>
         </form>
