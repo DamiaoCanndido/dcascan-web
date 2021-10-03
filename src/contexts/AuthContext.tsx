@@ -1,5 +1,5 @@
 import { createContext, useEffect, useState } from 'react';
-import { setCookie, parseCookies } from 'nookies';
+import { setCookie, parseCookies, destroyCookie } from 'nookies';
 import { api } from '../services/api';
 import Router from 'next/router';
 import recoverUser from '../services/recoverUser';
@@ -19,7 +19,9 @@ export function AuthProvider(props: AuthContextProviderProps) {
             setUser(user)
         }
         if (accessToken) {
-            getUser()
+            getUser().catch(error => {
+                destroyCookie(undefined, 'access-token')
+            })
         }
     }, [])
 
