@@ -19,24 +19,34 @@ const Register: NextPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [repeatPassword, setRepeatPassword] = useState("");
+  const [disabled, setDisabled] = useState(false);
 
 
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
+    setDisabled(true);
 
     if(name.trim() === ""){
-      return;
+        errorToast('Nome em branco ou inválido.')
+        setDisabled(false);
+        return;
     }
 
     if(email.trim() === ""){
+        errorToast('E-mail em branco ou inválido.')
+        setDisabled(false);
         return;
     }
 
     if(password.trim() === ""){
+        errorToast('Senha em branco ou inválido.')
+        setDisabled(false);
         return;
     }
 
     if(repeatPassword.trim() === ""){
+        errorToast('Senha em branco ou inválido.')
+        setDisabled(false);
         return;
     }
 
@@ -51,6 +61,8 @@ const Register: NextPage = () => {
         errorToast(registerErrors[i][0])
       }
     })
+
+    setDisabled(false);
 
     if (res) {
       successToast('Verifique seu e-mail.')
@@ -75,26 +87,30 @@ const Register: NextPage = () => {
             placeholder="Nome"
             onChange={(e) => setName(e.target.value)}
             value={name}
+            disabled={disabled}
           />
           <input 
             type="email" 
             placeholder="E-mail"
             onChange={(e) => setEmail(e.target.value)}
             value={email}
+            disabled={disabled}
           />
           <input 
             type="password" 
             placeholder="Senha"
             onChange={(e) => setPassword(e.target.value)}
             value={password}
+            disabled={disabled}
           />
           <input 
               type="password" 
               placeholder="Repetir senha"
               onChange={(e) => setRepeatPassword(e.target.value)}
               value={repeatPassword}
+              disabled={disabled}
           />
-          <Button type="submit">
+          <Button type="submit" disabled={disabled}>
               Criar Conta
           </Button>
         </form>
