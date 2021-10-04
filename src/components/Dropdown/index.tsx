@@ -1,24 +1,21 @@
 import styles from './styles.module.scss';
 
+type dropDownOptions = {
+    dropDownOptions: string[]
+}
 
-export function Dropdown() {
+export function Dropdown({ dropDownOptions }: dropDownOptions) {
     return (
         <ul className={styles.dropDownMenu}>
-            <li>
-                <div onClick={()=>{console.log("Example 1")}}>
-                    Example 1
-                </div>
-            </li>
-            <li>
-                <div onClick={()=>{console.log("Example 2")}}>
-                    Example 2
-                </div>  
-            </li>
-            <li>
-                <div onClick={()=>{console.log("Example 3")}}>
-                    Example 3
-                </div> 
-            </li>
+            {dropDownOptions.map((dropItem, index) => {
+                return (
+                    <li key={index}>
+                        <div onClick={()=>{console.log("Example 1")}}>
+                            {dropItem}
+                        </div>
+                    </li>
+                )
+            })}
         </ul>
     )
 }

@@ -43,6 +43,8 @@ export function FolderModal({ modalFunc = () => {}, id = 'modal' }: modalFunc) {
         }
 
         createFolder();
+
+        router.replace(router.asPath)
     }
 
     async function handleOutSideClick(e: FormEvent) {

@@ -34,11 +34,6 @@ export function SingleFileUploadWithProgress({file}: SingleFileUploadWithProgres
               }).catch(function(error){
                   console.log(error)
               })
-            // if (folder !== undefined) {
-            //   await api.get(`bucket/${folder}`)
-            // } else {
-            //   await api.get('bucket/')
-            // }
         }
         uploadProcess(file);
 

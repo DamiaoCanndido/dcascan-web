@@ -10,6 +10,9 @@ import { FolderModal } from '../FolderModal';
 import { FloatFolderButton } from '../FloatFolderButton';
 
 
+const headerOptions = ['Exemplo 1', 'Exemplo 2', 'Exemplo 3']
+
+
 export default function Header(){
 
     const [click, setClick] = useState(false);
@@ -54,7 +57,7 @@ export default function Header(){
                                 color='var(--white)'
                                 size={25}
                             />
-                            {click && <Dropdown/>}
+                            {click && <Dropdown dropDownOptions={headerOptions}/>}
                         </div> :
                         <FaBars
                             color='var(--white)'
