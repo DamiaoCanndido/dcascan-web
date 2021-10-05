@@ -9,7 +9,7 @@ import { Button } from '../../components/Button';
 import { useContext } from 'react';
 import { AuthContext } from '../../contexts/AuthContext';
 import { apiServerSide } from "../../services/apiServerSide";
-import { parseCookies } from "nookies";
+import { destroyCookie, parseCookies } from "nookies";
 import { errorToast } from "../../handlers/Toast";
 
 
@@ -106,14 +106,18 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 
   const { ['access-token']: accessToken } = parseCookies(ctx)
 
-  if (accessToken) {
-    await apiClient.get('auth/user')
-    return {
-      redirect: {
-        destination: '/home',
-        permanent: false
+  try {
+    const res = (await apiClient.get('auth/user')).status
+    if (res === 200 || accessToken) {
+      return {
+        redirect: {
+          destination: '/home',
+          permanent: false
+        }
       }
     }
+  } catch (error) {
+    destroyCookie(ctx, 'access-token')
   }
   
   return {
