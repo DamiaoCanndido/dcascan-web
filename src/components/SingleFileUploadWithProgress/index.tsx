@@ -34,9 +34,11 @@ export function SingleFileUploadWithProgress({file}: SingleFileUploadWithProgres
               }).catch(function(error){
                   console.log(error)
               })
+              router.replace(router.asPath)
         }
         uploadProcess(file);
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [file, router.query.uuid])
 
     return (

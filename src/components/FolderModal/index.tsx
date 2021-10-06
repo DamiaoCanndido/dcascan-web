@@ -17,11 +17,14 @@ type data = {
 export function FolderModal({ modalFunc = () => {}, id = 'modal' }: modalFunc) {
 
     const [name, setName] = useState('');
+    const [disabled, setDisabled] = useState(false);
+
     const router = useRouter();
 
     async function handleSubmit(e: FormEvent) {
-
         e.preventDefault();
+
+        setDisabled(true);
 
         if(name.trim() === ""){
             return;
@@ -44,6 +47,8 @@ export function FolderModal({ modalFunc = () => {}, id = 'modal' }: modalFunc) {
 
         createFolder();
 
+        setDisabled(false);
+
         router.replace(router.asPath)
     }
 
@@ -60,12 +65,22 @@ export function FolderModal({ modalFunc = () => {}, id = 'modal' }: modalFunc) {
                         placeholder="Nova pasta..."
                         onChange={(e) => setName(e.target.value)}
                         value={name}
+                        disabled={disabled}
                     />
                     <div className={styles.modalButtons}>
-                        <button className={styles.create} type="submit">
+                        <button 
+                            className={styles.create} 
+                            type="submit" 
+                            disabled={disabled}
+                        >
                             Criar
                         </button>
-                        <button onClick={modalFunc} className={styles.cancel} type="button">
+                        <button 
+                            onClick={modalFunc} 
+                            className={styles.cancel} 
+                            type="button" 
+                            disabled={disabled}
+                        >
                             Fechar
                         </button>
                     </div>

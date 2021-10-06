@@ -19,9 +19,7 @@ export function AuthProvider(props: AuthContextProviderProps) {
             setUser(user)
         }
         if (accessToken) {
-            getUser().catch(error => {
-                destroyCookie(undefined, 'access-token')
-            })
+            getUser()
         }
     }, [])
 
