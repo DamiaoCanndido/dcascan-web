@@ -1,12 +1,15 @@
 import { FormEvent } from "react";
 import { useRouter } from 'next/router';
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import styles from './styles.module.scss';
 import { api } from "../../services/api";
 
 type modalFunc = {
     modalFunc: () => void;
-    id?: string
+    id?: string;
+    inputVisible: boolean;
+    titleVisible: boolean;
+    title: string;
 }
 
 type data = {
@@ -14,7 +17,7 @@ type data = {
     root?: string;
 }
 
-export function FolderModal({ modalFunc = () => {}, id = 'modal' }: modalFunc) {
+export function FolderModal({ modalFunc = () => {}, id = 'modal', inputVisible, titleVisible, title }: modalFunc) {
 
     const [name, setName] = useState('');
     const [disabled, setDisabled] = useState(false);
@@ -60,13 +63,17 @@ export function FolderModal({ modalFunc = () => {}, id = 'modal' }: modalFunc) {
         <div id={id} className={styles.shadowZone} onClick={handleOutSideClick}>
             <div className={styles.modalContainer}>
                 <form onSubmit={handleSubmit}>
-                    <input 
-                        type="text" 
-                        placeholder="Nova pasta..."
-                        onChange={(e) => setName(e.target.value)}
-                        value={name}
-                        disabled={disabled}
-                    />
+                    {titleVisible && <p>{title}</p>}
+                    <br />
+                    {inputVisible && 
+                        <input 
+                            type="text" 
+                            placeholder="Nova pasta..."
+                            onChange={(e) => setName(e.target.value)}
+                            value={name}
+                            disabled={disabled}
+                        />
+                    }
                     <div className={styles.modalButtons}>
                         <button 
                             className={styles.create} 

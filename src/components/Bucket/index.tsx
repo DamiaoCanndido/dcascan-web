@@ -47,10 +47,10 @@ export default function Bucket({ buckets }: bucketProps) {
                                         <td>{bucket.created_at}</td>
                                         <td>
                                             <button>
-                                                <AiOutlineEdit size='2rem' color='var(--black)'/>
+                                                <AiOutlineEdit size='2rem' color='var(--green-500)'/>
                                             </button>
                                             <button>
-                                                <AiOutlineDelete size='2rem' color='var(--black)'/>
+                                                <AiOutlineDelete size='2rem' color='var(--pdf)'/>
                                             </button>
                                         </td>
                                     </tr>   
@@ -80,10 +80,10 @@ export default function Bucket({ buckets }: bucketProps) {
                                         <td>{bucket.created_at}</td>
                                         <td>
                                             <button>
-                                                <AiOutlineEdit size='2rem' color='var(--black)'/>
+                                                <AiOutlineEdit size='2rem' color='var(--green-500)'/>
                                             </button>
                                             <button>
-                                                <AiOutlineDelete size='2rem' color='var(--black)'/>
+                                                <AiOutlineDelete size='2rem' color='var(--pdf)'/>
                                             </button>
                                         </td>
                                     </tr>  

@@ -40,7 +40,14 @@ export default function Header(){
                         color='var(--green-500)'
                     />
                 </button>
-                {isModalVisible ? <FolderModal modalFunc={handleModal}/> : null}
+                {isModalVisible &&
+                    <FolderModal 
+                        modalFunc={handleModal}
+                        inputVisible={true}
+                        titleVisible={true} 
+                        title={'Criar pasta'}                    
+                    />
+                }
                 <form>
                     <input placeholder='Em desenvolvimento...'/>
                     <button>
