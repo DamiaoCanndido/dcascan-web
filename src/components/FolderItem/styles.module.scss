@@ -1,0 +1,36 @@
+.folderItem {
+    th, td {
+        padding: 0.75rem 1rem;
+        border-bottom: 1px solid var(--gray-500);
+    }
+    
+    th {
+        color: var(--gray-800);
+        text-transform: uppercase;
+        font: 500 0.75rem Lexend, sans-serif;
+        text-align: left;
+    }
+    
+    td {
+        font-size: 0.875rem;
+    
+        button {
+            border: none;
+            margin-right: 0.5rem;
+            background-color: transparent;
+        }
+    }
+    
+    a {
+        font-size: 1rem;
+        color: var(--gray-800);
+        font-family: Lexend, sans-serif;
+        font-weight: 600;
+        text-decoration: none;
+        line-height: 1.4rem;
+    
+        &:hover {
+            text-decoration: underline;
+        } 
+    }
+}

@@ -86,14 +86,15 @@ export default function Header(){
                 </button>
                 {isModalVisible &&
                     <FolderModal 
-                    modalFunc={handleModal}
-                    inputVisible={true}
-                    titleVisible={true}
-                    title={'Criar pasta'} 
-                    disabled={disabled}
-                    name={name}
-                    handleSubmit={handleSubmit}  
-                    changeInput={(e) => setName(e.target.value)}                  />
+                        modalFunc={handleModal}
+                        inputVisible={true}
+                        titleVisible={true}
+                        title={'Criar pasta'} 
+                        disabled={disabled}
+                        name={name}
+                        handleSubmit={handleSubmit}  
+                        changeInput={(e) => setName(e.target.value)}                  
+                    />
                 }
                 <form>
                     <input placeholder='Em desenvolvimento...'/>

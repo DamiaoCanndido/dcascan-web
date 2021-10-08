@@ -5,18 +5,20 @@ import styles from './styles.module.scss';
 type modalFunc = {
     modalFunc: () => void;
     id?: string;
+    uuid?: string;
     inputVisible: boolean;
     titleVisible: boolean;
     title: string;
     disabled: boolean;
-    name: string;
+    name?: string;
     handleSubmit: (e: FormEvent) => Promise<void>
-    changeInput: (e: ChangeEvent<HTMLInputElement>) => void
+    changeInput?: (e: ChangeEvent<HTMLInputElement>) => void
 }
 
 export function FolderModal({ 
     modalFunc = () => {}, 
     id = 'modal', 
+    uuid,
     inputVisible, 
     titleVisible, 
     title, 
