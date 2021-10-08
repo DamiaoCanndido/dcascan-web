@@ -4,13 +4,20 @@ import Link from 'next/link';
 import { Dropdown } from '../Dropdown';
 import { FiSearch } from "react-icons/fi";
 import { FaBars, FaTimes } from "react-icons/fa";
-import React, { useState } from 'react';
+import React, { FormEvent, useState } from 'react';
 import { AiFillFolder } from 'react-icons/ai';
 import { FolderModal } from '../FolderModal';
 import { FloatFolderButton } from '../FloatFolderButton';
+import { useRouter } from 'next/router';
+import { api } from '../../services/api';
 
 
 const headerOptions = ['Exemplo 1', 'Exemplo 2', 'Exemplo 3']
+
+type data = {
+    name: string;
+    root?: string;
+}
 
 
 export default function Header(){
@@ -20,6 +27,43 @@ export default function Header(){
 
     const handleClick = () => setClick(!click);
     const handleModal = () => setIsModalVisible(!isModalVisible);
+
+    const [name, setName] = useState('');
+    const [disabled, setDisabled] = useState(false);
+
+    const router = useRouter();
+
+    async function handleSubmit(e: FormEvent) {
+        e.preventDefault();
+
+        setDisabled(true);
+
+        if(name.trim() === ""){
+            setDisabled(false);
+            return;
+        }
+
+        const folder = router.query.uuid as string;
+
+        const createFolder = async () => {
+            let data: data = {name: name.trim()}
+
+            if (folder !== undefined) {
+                data.root = folder.trim();
+            }
+
+            await api.post('folder/', data)
+            .catch(function(error){
+                console.log(error)
+            })
+        }
+
+        createFolder();
+
+        setDisabled(false);
+
+        router.replace(router.asPath)
+    }
 
     return (
         <div className={styles.divContainer}>
@@ -42,11 +86,14 @@ export default function Header(){
                 </button>
                 {isModalVisible &&
                     <FolderModal 
-                        modalFunc={handleModal}
-                        inputVisible={true}
-                        titleVisible={true} 
-                        title={'Criar pasta'}                    
-                    />
+                    modalFunc={handleModal}
+                    inputVisible={true}
+                    titleVisible={true}
+                    title={'Criar pasta'} 
+                    disabled={disabled}
+                    name={name}
+                    handleSubmit={handleSubmit}  
+                    changeInput={(e) => setName(e.target.value)}                  />
                 }
                 <form>
                     <input placeholder='Em desenvolvimento...'/>

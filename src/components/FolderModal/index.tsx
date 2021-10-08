@@ -1,8 +1,6 @@
-import { FormEvent } from "react";
-import { useRouter } from 'next/router';
-import { useState } from "react";
+import { ChangeEvent, FormEvent } from "react";
 import styles from './styles.module.scss';
-import { api } from "../../services/api";
+
 
 type modalFunc = {
     modalFunc: () => void;
@@ -10,50 +8,23 @@ type modalFunc = {
     inputVisible: boolean;
     titleVisible: boolean;
     title: string;
-}
-
-type data = {
+    disabled: boolean;
     name: string;
-    root?: string;
+    handleSubmit: (e: FormEvent) => Promise<void>
+    changeInput: (e: ChangeEvent<HTMLInputElement>) => void
 }
 
-export function FolderModal({ modalFunc = () => {}, id = 'modal', inputVisible, titleVisible, title }: modalFunc) {
-
-    const [name, setName] = useState('');
-    const [disabled, setDisabled] = useState(false);
-
-    const router = useRouter();
-
-    async function handleSubmit(e: FormEvent) {
-        e.preventDefault();
-
-        setDisabled(true);
-
-        if(name.trim() === ""){
-            return;
-        }
-
-        const folder = router.query.uuid as string;
-
-        const createFolder = async () => {
-            let data: data = {name: name.trim()}
-
-            if (folder !== undefined) {
-                data.root = folder.trim();
-            }
-
-            await api.post('folder/', data)
-            .catch(function(error){
-                console.log(error)
-            })
-        }
-
-        createFolder();
-
-        setDisabled(false);
-
-        router.replace(router.asPath)
-    }
+export function FolderModal({ 
+    modalFunc = () => {}, 
+    id = 'modal', 
+    inputVisible, 
+    titleVisible, 
+    title, 
+    disabled, 
+    name, 
+    handleSubmit, 
+    changeInput }: modalFunc) 
+{
 
     async function handleOutSideClick(e: FormEvent) {
         if ((e.target as Element).id === id) modalFunc() 
@@ -69,7 +40,7 @@ export function FolderModal({ modalFunc = () => {}, id = 'modal', inputVisible, 
                         <input 
                             type="text" 
                             placeholder="Nova pasta..."
-                            onChange={(e) => setName(e.target.value)}
+                            onChange={changeInput}
                             value={name}
                             disabled={disabled}
                         />
