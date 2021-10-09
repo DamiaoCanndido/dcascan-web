@@ -25,13 +25,12 @@ export function FolderItem(bucket: folderFileTypes){
         const deleteFolder = async () => {
             await api.delete(`folder/${bucket.id}`)
                 .catch(error => console.log(error))
+            router.replace(router.asPath)
         }
 
         deleteFolder();
 
         setDisabled(false);
-
-        router.replace(router.asPath)
     }
 
     return (

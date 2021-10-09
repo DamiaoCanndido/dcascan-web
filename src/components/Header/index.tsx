@@ -56,13 +56,12 @@ export default function Header(){
             .catch(function(error){
                 console.log(error)
             })
+            router.replace(router.asPath)
         }
 
         createFolder();
 
         setDisabled(false);
-
-        router.replace(router.asPath)
     }
 
     return (
