@@ -36,6 +36,8 @@ export function FolderItem(bucket: folderFileTypes){
             await api.put(`folder/${bucket.id}`, {
                 name: name.trim()
             }).catch(error => console.log(error))
+
+            setIsModalUpdateVisible(false);
             router.replace(router.asPath)
         }
 
@@ -52,6 +54,8 @@ export function FolderItem(bucket: folderFileTypes){
         const deleteFolder = async () => {
             await api.delete(`folder/${bucket.id}`)
                 .catch(error => console.log(error))
+
+            setIsModalDeleteVisible(false);
             router.replace(router.asPath)
         }
 

@@ -56,6 +56,8 @@ export default function Header(){
             .catch(function(error){
                 console.log(error)
             })
+
+            setIsModalVisible(!isModalVisible);
             router.replace(router.asPath)
         }
 
