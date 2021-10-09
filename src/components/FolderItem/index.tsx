@@ -9,15 +9,42 @@ import { api } from "../../services/api";
 
 export function FolderItem(bucket: folderFileTypes){
 
-    const [isModalVisible, setIsModalVisible] = useState(false);
+    const [isModalUpdateVisible, setIsModalUpdateVisible] = useState(false);
+    const [isModalDeleteVisible, setIsModalDeleteVisible] = useState(false);
 
-    const handleModal = () => setIsModalVisible(!isModalVisible);
+    const [name, setName] = useState('');
+
+    const handleUpdateModal = () => {
+        setIsModalUpdateVisible(!isModalUpdateVisible);
+        setIsModalDeleteVisible(false);
+    }
+    const handleDeleteModal = () => {
+        setIsModalDeleteVisible(!isModalDeleteVisible);
+        setIsModalUpdateVisible(false);
+    }
 
     const [disabled, setDisabled] = useState(false);
 
     const router = useRouter();
 
-    async function handleSubmit(e: FormEvent) {
+    async function handleUpdateSubmit(e: FormEvent) {
+        e.preventDefault();
+
+        setDisabled(true);
+
+        const updateFolder = async () => {
+            await api.put(`folder/${bucket.id}`, {
+                name: name.trim()
+            }).catch(error => console.log(error))
+            router.replace(router.asPath)
+        }
+
+        updateFolder();
+
+        setDisabled(false);
+    }
+
+    async function handleDeleteSubmit(e: FormEvent) {
         e.preventDefault();
 
         setDisabled(true);
@@ -55,20 +82,33 @@ export function FolderItem(bucket: folderFileTypes){
             <td>{bucket.updated_at}</td>
             <td>{bucket.created_at}</td>
             <td>
-                <button>
+                <button onClick={handleUpdateModal}>
                     <AiOutlineEdit size='2rem' color='var(--green-500)'/>
                 </button>
-                <button onClick={handleModal}>
+                <button onClick={handleDeleteModal}>
                     <AiOutlineDelete size='2rem' color='var(--pdf)'/>
                 </button>
-                {isModalVisible &&
+                {isModalUpdateVisible &&
                     <FolderModal 
-                        modalFunc={handleModal}
+                        modalFunc={handleUpdateModal}
+                        inputVisible={true}
+                        titleVisible={true}
+                        title={`Atualizar pasta ${bucket.name}?`}
+                        name={name}
+                        changeInput={(e) => setName(e.target.value)}
+                        disabled={disabled}
+                        handleSubmit={handleUpdateSubmit} 
+                        leftButtonTitle={'Atualizar'}                    
+                    />
+                }
+                {isModalDeleteVisible &&
+                    <FolderModal 
+                        modalFunc={handleDeleteModal}
                         inputVisible={false}
                         titleVisible={true}
                         title={`Deletar pasta ${bucket.name}?`}
                         disabled={disabled}
-                        handleSubmit={handleSubmit} 
+                        handleSubmit={handleDeleteSubmit} 
                         leftButtonTitle={'Excluir'}                    
                     />
                 }
