@@ -92,7 +92,8 @@ export default function Header(){
                         disabled={disabled}
                         name={name}
                         handleSubmit={handleSubmit}  
-                        changeInput={(e) => setName(e.target.value)}                  
+                        changeInput={(e) => setName(e.target.value)} 
+                        leftButtonTitle={'Criar'}                 
                     />
                 }
                 <form>

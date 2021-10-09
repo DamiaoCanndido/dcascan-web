@@ -2,12 +2,12 @@ import Link from "next/link";
 import styles from './styles.module.scss';
 import { useRouter } from "next/router";
 import React, { FormEvent, useState } from "react";
-import { AiFillFolder, AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
+import { AiFillFilePdf, AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
 import { folderFileTypes } from "../../protocols/protocols";
 import { FolderModal } from "../FolderModal";
 import { api } from "../../services/api";
 
-export function FolderItem(bucket: folderFileTypes){
+export function FileItem(bucket: folderFileTypes){
 
     const [isModalVisible, setIsModalVisible] = useState(false);
 
@@ -22,33 +22,34 @@ export function FolderItem(bucket: folderFileTypes){
 
         setDisabled(true);
 
-        const deleteFolder = async () => {
-            await api.delete(`folder/${bucket.id}`)
+        const deleteFile = async () => {
+            await api.delete(`uploads/${bucket.id}`)
                 .catch(error => console.log(error))
             router.replace(router.asPath)
         }
 
-        deleteFolder();
+        deleteFile();
 
         setDisabled(false);
     }
 
     return (
-        <tr className={styles.folderItem}>
+        <tr className={styles.fileItem}>
             <td>
                 <input
+                    className={styles.checkInput}
                     type="checkbox"
                     disabled={false}
                     onChange={() => {}}
                 />
             </td>
             <td>
-                <AiFillFolder size='3rem' color='var(--folder)'/>
+                <AiFillFilePdf size='3rem' color='var(--pdf)'/>
             </td>
             <td>
-                <Link href={`/home/${bucket.id}`}>
+                <Link href={bucket.file}>
                     <a>
-                    {bucket.name}
+                        {bucket.name}
                     </a>
                 </Link>
             </td>
@@ -66,13 +67,13 @@ export function FolderItem(bucket: folderFileTypes){
                         modalFunc={handleModal}
                         inputVisible={false}
                         titleVisible={true}
-                        title={`Deletar pasta ${bucket.name}?`}
+                        title={`Deletar arquivo ${bucket.name}?`} 
                         disabled={disabled}
                         handleSubmit={handleSubmit} 
-                        leftButtonTitle={'Excluir'}                    
+                        leftButtonTitle={'Excluir'}                 
                     />
                 }
             </td>
-        </tr>   
+        </tr>
     )
 }

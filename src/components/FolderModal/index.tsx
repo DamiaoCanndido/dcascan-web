@@ -5,25 +5,25 @@ import styles from './styles.module.scss';
 type modalFunc = {
     modalFunc: () => void;
     id?: string;
-    uuid?: string;
     inputVisible: boolean;
     titleVisible: boolean;
     title: string;
     disabled: boolean;
     name?: string;
+    leftButtonTitle: string;
     handleSubmit: (e: FormEvent) => Promise<void>
     changeInput?: (e: ChangeEvent<HTMLInputElement>) => void
 }
 
 export function FolderModal({ 
     modalFunc = () => {}, 
-    id = 'modal', 
-    uuid,
+    id = 'modal',
     inputVisible, 
     titleVisible, 
     title, 
     disabled, 
     name, 
+    leftButtonTitle,
     handleSubmit, 
     changeInput }: modalFunc) 
 {
@@ -53,7 +53,7 @@ export function FolderModal({
                             type="submit" 
                             disabled={disabled}
                         >
-                            Criar
+                            {leftButtonTitle}
                         </button>
                         <button 
                             onClick={modalFunc} 
