@@ -19,7 +19,19 @@ export function FileItem(bucket: folderFileTypes){
 
     useEffect(()=>{
         setIsChecked(bucket.checkAll)
+        if (!bucket.checkAll) {
+            bucket.setAllIdsFiles([])
+        }
     }, [bucket.checkAll])
+
+    useEffect(() => {
+        if (isChecked) {
+            bucket.setAllIdsFiles(oldArray => [...oldArray, bucket.id])
+        } else {
+            const filteredBuckets = bucket.allIdsFiles.filter(item => item !== bucket.id)
+            bucket.setAllIdsFiles(filteredBuckets)
+        }
+    }, [isChecked])
 
     const router = useRouter();
 

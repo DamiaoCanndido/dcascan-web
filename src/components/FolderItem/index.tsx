@@ -16,7 +16,19 @@ export function FolderItem(bucket: folderFileTypes){
 
     useEffect(()=>{
         setIsChecked(bucket.checkAll)
+        if (!bucket.checkAll) {
+            bucket.setAllIdsFolder([])
+        }
     }, [bucket.checkAll])
+
+    useEffect(() => {
+        if (isChecked) {
+            bucket.setAllIdsFolder(oldArray => [...oldArray, bucket.id])
+        } else {
+            const filteredBuckets = bucket.allIdsFolder.filter(item => item !== bucket.id)
+            bucket.setAllIdsFolder(filteredBuckets)
+        }
+    }, [isChecked])
 
     const [name, setName] = useState('');
 
