@@ -1,7 +1,7 @@
 import Link from "next/link";
 import styles from './styles.module.scss';
 import { useRouter } from "next/router";
-import React, { FormEvent, useState } from "react";
+import React, { FormEvent, useEffect, useState } from "react";
 import { AiFillFilePdf, AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
 import { folderFileTypes } from "../../protocols/protocols";
 import { FolderModal } from "../FolderModal";
@@ -14,6 +14,12 @@ export function FileItem(bucket: folderFileTypes){
     const handleModal = () => setIsModalVisible(!isModalVisible);
 
     const [disabled, setDisabled] = useState(false);
+
+    const [isChecked, setIsChecked] = useState(false);
+
+    useEffect(()=>{
+        setIsChecked(bucket.checkAll)
+    }, [bucket.checkAll])
 
     const router = useRouter();
 
@@ -37,10 +43,9 @@ export function FileItem(bucket: folderFileTypes){
         <tr className={styles.fileItem}>
             <td>
                 <input
-                    className={styles.checkInput}
                     type="checkbox"
-                    disabled={false}
-                    onChange={() => {}}
+                    checked={isChecked}
+                    onChange={() => setIsChecked(!isChecked)}
                 />
             </td>
             <td>

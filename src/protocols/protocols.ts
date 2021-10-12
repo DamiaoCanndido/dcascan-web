@@ -42,6 +42,7 @@ export type folderFileTypes = {
     key?: string,
     folder?: string
     root?: string
+    checkAll: boolean; 
 }
   
 export type bucketProps = {

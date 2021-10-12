@@ -1,7 +1,7 @@
 import Link from "next/link";
 import styles from './styles.module.scss';
 import { useRouter } from "next/router";
-import React, { FormEvent, useState } from "react";
+import React, { FormEvent, useEffect, useState } from "react";
 import { AiFillFolder, AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
 import { folderFileTypes } from "../../protocols/protocols";
 import { FolderModal } from "../FolderModal";
@@ -11,6 +11,12 @@ export function FolderItem(bucket: folderFileTypes){
 
     const [isModalUpdateVisible, setIsModalUpdateVisible] = useState(false);
     const [isModalDeleteVisible, setIsModalDeleteVisible] = useState(false);
+
+    const [isChecked, setIsChecked] = useState(false);
+
+    useEffect(()=>{
+        setIsChecked(bucket.checkAll)
+    }, [bucket.checkAll])
 
     const [name, setName] = useState('');
 
@@ -69,8 +75,8 @@ export function FolderItem(bucket: folderFileTypes){
             <td>
                 <input
                     type="checkbox"
-                    disabled={false}
-                    onChange={() => {}}
+                    checked={isChecked}
+                    onChange={() => setIsChecked(!isChecked)}
                 />
             </td>
             <td>
