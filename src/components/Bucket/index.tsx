@@ -4,6 +4,7 @@ import { bucketProps } from '../../protocols/protocols';
 import { FolderItem } from '../FolderItem';
 import React, { SetStateAction, useState } from 'react';
 import { FileItem } from '../FileItem';
+import { OptionsBar } from '../OptionsBar';
 
 
 export default function Bucket({ buckets }: bucketProps) {
@@ -15,6 +16,7 @@ export default function Bucket({ buckets }: bucketProps) {
     return (
         <div className={styles.homePage}>
             <Dropzone/>
+            <OptionsBar/>
             {allIdsFolder.map((e, i)=> {
                 return (
                     <h3 key={i}>{e}</h3>

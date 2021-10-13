@@ -1,4 +1,4 @@
-import {Dispatch, FunctionComponent, SetStateAction, useCallback, useState} from 'react'
+import {useCallback, useState} from 'react'
 import {FileError, FileRejection, useDropzone} from 'react-dropzone'
 import { SingleFileUploadWithProgress } from '../SingleFileUploadWithProgress';
 import styles from './styles.module.scss';

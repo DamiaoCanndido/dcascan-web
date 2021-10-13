@@ -1,0 +1,24 @@
+.optionsBar {
+    background-color: var(--green-300);
+    height: 5rem;
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 0.4rem;
+    transition: height 0.4s ease;
+
+    .list {
+        display: flex;
+        flex: 1;
+        justify-content: center;
+        align-items: center;
+        background-color: var(--white);
+    }
+
+    .general {
+        display: flex;
+        flex: 1;
+        background-color: var(--black);
+    }
+}
