@@ -1,5 +1,5 @@
 .optionsBar {
-    background-color: var(--green-300);
+    background-color: transparent;
     height: 5rem;
     margin-top: 1rem;
     display: flex;
@@ -11,9 +11,24 @@
     .list {
         display: flex;
         flex: 1;
-        justify-content: center;
+        justify-content: flex-start;
         align-items: center;
-        background-color: var(--white);
+        background-color: transparent;
+
+        button {
+            margin-right: 0.5rem;
+            border: 0;
+            width: 4rem;
+            border-radius: 0.5rem;
+        }
+
+        .cutButton {
+            background-color: var(--green-500);
+        }
+
+        .deleteButton {
+            background-color: var(--pdf);
+        }
     }
 
     .general {

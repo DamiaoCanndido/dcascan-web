@@ -2,7 +2,7 @@ import styles from './styles.module.scss';
 import { Dropzone } from '../Dropzone';
 import { bucketProps } from '../../protocols/protocols';
 import { FolderItem } from '../FolderItem';
-import React, { SetStateAction, useState } from 'react';
+import React, { SetStateAction, useEffect, useState } from 'react';
 import { FileItem } from '../FileItem';
 import { OptionsBar } from '../OptionsBar';
 
@@ -12,11 +12,21 @@ export default function Bucket({ buckets }: bucketProps) {
     const [isCheckAll, setIsCheckAll] = useState(false);
     const [allIdsFolder, setAllIdsFolder] = useState<string[]>([]);
     const [allIdsFiles, setAllIdsFiles] = useState<string[]>([]);
+    const [disableOptionsBar, setDisableOptionsBar] = useState(false);
+
+
+    useEffect(() => {
+        if ((allIdsFolder.length + allIdsFiles.length) > 0) {
+            setDisableOptionsBar(true)
+        } else {
+            setDisableOptionsBar(false)
+        }
+    }, [allIdsFolder, allIdsFiles])
 
     return (
         <div className={styles.homePage}>
             <Dropzone/>
-            <OptionsBar/>
+            {disableOptionsBar && <OptionsBar/>}
             {allIdsFolder.map((e, i)=> {
                 return (
                     <h3 key={i}>{e}</h3>
