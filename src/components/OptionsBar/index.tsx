@@ -4,6 +4,7 @@ import React, { FormEvent, useState } from 'react';
 import { FolderModal } from '../FolderModal';
 import { api } from '../../services/api';
 import { useRouter } from 'next/router';
+import { MoveModal } from '../MoveModal';
 
 type archiveType = {
     allIdsFiles: string[];
@@ -15,11 +16,20 @@ type archiveType = {
 export function OptionsBar({ allIdsFolder, allIdsFiles, setAllIdsFolder, setAllIdsFiles }: archiveType) {
 
     const [isModalDeleteVisible, setIsModalDeleteVisible] = useState(false);
+    const [isModalMoveVisible, setIsModalMoveVisible] = useState(false);
     const [disabled, setDisabled] = useState(false);
 
     const router = useRouter();
 
-    const handleModal = () => setIsModalDeleteVisible(!isModalDeleteVisible);
+    const handleMoveModal = () => {
+        setIsModalMoveVisible(!isModalMoveVisible);
+        setIsModalDeleteVisible(false);
+    }
+
+    const handleDeleteModal = () => {
+        setIsModalDeleteVisible(!isModalDeleteVisible);
+        setIsModalMoveVisible(false);
+    }
 
     async function handleDeleteSubmit(e: FormEvent) {
         e.preventDefault()
@@ -57,17 +67,22 @@ export function OptionsBar({ allIdsFolder, allIdsFiles, setAllIdsFolder, setAllI
     return (
         <div className={styles.optionsBar}>
             <div className={styles.list}>
-                <button className={styles.cutButton}>
+                <button className={styles.cutButton} onClick={handleMoveModal}>
                     <MdContentCut size='2rem' color='var(--white)'/>
                 </button>
-                <button className={styles.deleteButton} onClick={handleModal}>
+                <button className={styles.deleteButton} onClick={handleDeleteModal}>
                     <MdDelete size='2rem' color='var(--white)'/>
                 </button>
             </div>
             <div className={styles.general}></div>
+            {isModalMoveVisible && 
+                <MoveModal 
+                    modalFunc={handleMoveModal}
+                />
+            }
             {isModalDeleteVisible &&
                 <FolderModal 
-                    modalFunc={handleModal}
+                    modalFunc={handleDeleteModal}
                     titleVisible={true}
                     title={'Deletar os selecionados?'}
                     disabled={disabled}
