@@ -8,9 +8,11 @@ import { useRouter } from 'next/router';
 type archiveType = {
     allIdsFiles: string[];
     allIdsFolder: string[];
+    setAllIdsFolder: React.Dispatch<React.SetStateAction<string[]>>;
+    setAllIdsFiles: React.Dispatch<React.SetStateAction<string[]>>;
 }
 
-export function OptionsBar({ allIdsFolder, allIdsFiles }: archiveType) {
+export function OptionsBar({ allIdsFolder, allIdsFiles, setAllIdsFolder, setAllIdsFiles }: archiveType) {
 
     const [isModalDeleteVisible, setIsModalDeleteVisible] = useState(false);
     const [disabled, setDisabled] = useState(false);
@@ -29,6 +31,7 @@ export function OptionsBar({ allIdsFolder, allIdsFiles }: archiveType) {
                 await api.delete(`folder/${elem}`)
                     .catch(error => console.log(error))
 
+                setAllIdsFolder([]);
                 setIsModalDeleteVisible(false);
                 router.replace(router.asPath)
             }
@@ -41,6 +44,7 @@ export function OptionsBar({ allIdsFolder, allIdsFiles }: archiveType) {
                 await api.delete(`uploads/${elem}`)
                     .catch(error => console.log(error))
 
+                setAllIdsFiles([])
                 setIsModalDeleteVisible(false);    
                 router.replace(router.asPath)
             }

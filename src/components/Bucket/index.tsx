@@ -31,6 +31,8 @@ export default function Bucket({ buckets }: bucketProps) {
                 <OptionsBar 
                     allIdsFolder={allIdsFolder} 
                     allIdsFiles={allIdsFiles}
+                    setAllIdsFolder={setAllIdsFolder}
+                    setAllIdsFiles={setAllIdsFiles}
                 />
             }
             {allIdsFolder.map((e, i)=> {
