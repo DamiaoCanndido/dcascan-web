@@ -23,10 +23,16 @@ export default function Bucket({ buckets }: bucketProps) {
         }
     }, [allIdsFolder, allIdsFiles])
 
+
     return (
         <div className={styles.homePage}>
             <Dropzone/>
-            {disableOptionsBar && <OptionsBar/>}
+            {disableOptionsBar && 
+                <OptionsBar 
+                    allIdsFolder={allIdsFolder} 
+                    allIdsFiles={allIdsFiles}
+                />
+            }
             {allIdsFolder.map((e, i)=> {
                 return (
                     <h3 key={i}>{e}</h3>

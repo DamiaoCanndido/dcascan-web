@@ -2,19 +2,51 @@ import styles from './styles.module.scss';
 import { MdContentCut, MdDelete } from 'react-icons/md';
 import React, { FormEvent, useState } from 'react';
 import { FolderModal } from '../FolderModal';
+import { api } from '../../services/api';
+import { useRouter } from 'next/router';
 
+type archiveType = {
+    allIdsFiles: string[];
+    allIdsFolder: string[];
+}
 
-export function OptionsBar() {
+export function OptionsBar({ allIdsFolder, allIdsFiles }: archiveType) {
 
     const [isModalDeleteVisible, setIsModalDeleteVisible] = useState(false);
     const [disabled, setDisabled] = useState(false);
+
+    const router = useRouter();
 
     const handleModal = () => setIsModalDeleteVisible(!isModalDeleteVisible);
 
     async function handleDeleteSubmit(e: FormEvent) {
         e.preventDefault()
+
         setDisabled(true);
-        setIsModalDeleteVisible(false);
+
+        allIdsFolder.forEach(elem => {
+            const deleteFolder = async () => {
+                await api.delete(`folder/${elem}`)
+                    .catch(error => console.log(error))
+
+                setIsModalDeleteVisible(false);
+                router.replace(router.asPath)
+            }
+            deleteFolder()
+            
+        })
+
+        allIdsFiles.forEach(elem => {
+            const deleteFile = async () => {
+                await api.delete(`uploads/${elem}`)
+                    .catch(error => console.log(error))
+
+                setIsModalDeleteVisible(false);    
+                router.replace(router.asPath)
+            }
+            deleteFile()
+        })
+        
         setDisabled(false);
     }
 

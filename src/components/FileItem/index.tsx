@@ -43,6 +43,8 @@ export function FileItem(bucket: folderFileTypes){
         const deleteFile = async () => {
             await api.delete(`uploads/${bucket.id}`)
                 .catch(error => console.log(error))
+
+            setIsModalVisible(false);    
             router.replace(router.asPath)
         }
 
