@@ -25,6 +25,12 @@
             background-color: var(--green-100);
             width: 15rem;
 
+            .moveButton {
+                background-color: var(--green-300);
+                color: var(--white);
+                padding: 0.25rem 1rem;
+            }
+
             button {
                 background-color: transparent;
                 border: none;

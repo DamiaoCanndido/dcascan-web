@@ -42,11 +42,12 @@ export type folderFileTypes = {
     key?: string,
     folder?: string
     root?: string
-    checkAll: boolean; 
-    setAllIdsFolder: React.Dispatch<React.SetStateAction<string[]>>;
-    setAllIdsFiles: React.Dispatch<React.SetStateAction<string[]>>;
-    allIdsFolder: string[];
-    allIdsFiles: string[];
+    checkAll?: boolean; 
+    setAllIdsFolder?: React.Dispatch<React.SetStateAction<string[]>>;
+    setAllIdsFiles?: React.Dispatch<React.SetStateAction<string[]>>;
+    allIdsFolder?: string[];
+    allIdsFiles?: string[];
+    folderSelected?: string;
 }
   
 export type bucketProps = {

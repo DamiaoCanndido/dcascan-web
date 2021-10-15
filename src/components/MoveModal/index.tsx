@@ -1,7 +1,8 @@
-import { FormEvent } from 'react';
+import { FormEvent, useState } from 'react';
 import styles from './styles.module.scss';
 import { AiOutlineArrowLeft, AiOutlineClose } from 'react-icons/ai';
 import { folderFileTypes } from '../../protocols/protocols';
+import { MoveModalItem } from '../MoveModaItem';
 
 type modalFunc = {
     modalFunc: () => void;
@@ -15,6 +16,9 @@ export function MoveModal({
     buckets,
 }: modalFunc) {
 
+    const [defaultBuckets, setDefaultBuckets] = useState(buckets);
+    const [folderSelected, setFolderSelected] = useState('');
+
     async function handleOutSideClick(e: FormEvent) {
         if ((e.target as Element).id === id) modalFunc() 
     }
@@ -26,15 +30,27 @@ export function MoveModal({
                     <button>
                         <AiOutlineArrowLeft size='1.5rem' color='var(--black)'/>
                     </button>
-                    <p>Mover</p>
+                    <button className={styles.moveButton}>
+                        Mover
+                    </button>
                     <button onClick={modalFunc}>
                         <AiOutlineClose size='1.5rem' color='var(--black)'/>
                     </button>
                 </div>
-                {buckets.map(e => {
-                    return (
-                        <p>{e.name}</p>
-                    )
+                {defaultBuckets.map(bucket => {
+                    if (bucket.file === undefined){
+                        return (
+                            <MoveModalItem 
+                                key={bucket.id}
+                                id={bucket.id} 
+                                owner={bucket.owner} 
+                                created_at={bucket.created_at} 
+                                updated_at={bucket.updated_at} 
+                                name={bucket.name} 
+                                folderSelected={folderSelected}
+                            />
+                        )
+                    }
                 })}
             </div>
         </div>
