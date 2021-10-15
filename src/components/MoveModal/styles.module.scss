@@ -1,0 +1,24 @@
+.shadowZone {
+    display: flex;
+    width: 100%;
+    height: 100vh;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 20;
+    background-color: rgba(255, 255, 255, 0.4);
+    justify-content: flex-end;
+    align-items: flex-end;
+
+    .modalContainer {
+        display: flex;
+        border: solid 1px var(--black);
+        align-items: center;
+        justify-content: center;
+        padding: 0.5rem;
+        display: flex;
+        background-color: var(--white);
+        height: calc(100vh - 6.5rem);
+        width: 15rem;
+    }
+}
