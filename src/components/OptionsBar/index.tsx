@@ -5,15 +5,23 @@ import { FolderModal } from '../FolderModal';
 import { api } from '../../services/api';
 import { useRouter } from 'next/router';
 import { MoveModal } from '../MoveModal';
+import { folderFileTypes } from '../../protocols/protocols';
 
 type archiveType = {
     allIdsFiles: string[];
     allIdsFolder: string[];
     setAllIdsFolder: React.Dispatch<React.SetStateAction<string[]>>;
     setAllIdsFiles: React.Dispatch<React.SetStateAction<string[]>>;
+    buckets: folderFileTypes[];
 }
 
-export function OptionsBar({ allIdsFolder, allIdsFiles, setAllIdsFolder, setAllIdsFiles }: archiveType) {
+export function OptionsBar({ 
+    allIdsFolder, 
+    allIdsFiles, 
+    setAllIdsFolder, 
+    setAllIdsFiles,
+    buckets
+}: archiveType) {
 
     const [isModalDeleteVisible, setIsModalDeleteVisible] = useState(false);
     const [isModalMoveVisible, setIsModalMoveVisible] = useState(false);
@@ -78,6 +86,7 @@ export function OptionsBar({ allIdsFolder, allIdsFiles, setAllIdsFolder, setAllI
             {isModalMoveVisible && 
                 <MoveModal 
                     modalFunc={handleMoveModal}
+                    buckets={buckets}
                 />
             }
             {isModalDeleteVisible &&

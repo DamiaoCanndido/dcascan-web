@@ -33,6 +33,7 @@ export default function Bucket({ buckets }: bucketProps) {
                     allIdsFiles={allIdsFiles}
                     setAllIdsFolder={setAllIdsFolder}
                     setAllIdsFiles={setAllIdsFiles}
+                    buckets={buckets}
                 />
             }
             {allIdsFolder.map((e, i)=> {
