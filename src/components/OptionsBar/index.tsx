@@ -87,6 +87,8 @@ export function OptionsBar({
                 <MoveModal 
                     modalFunc={handleMoveModal}
                     buckets={buckets}
+                    allIdsFiles={allIdsFiles}
+                    allIdsFolder={allIdsFolder}
                 />
             }
             {isModalDeleteVisible &&

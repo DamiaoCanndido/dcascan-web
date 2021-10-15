@@ -1,4 +1,4 @@
-import { FormEvent, useState } from 'react';
+import { FormEvent, useEffect, useState } from 'react';
 import styles from './styles.module.scss';
 import { AiOutlineArrowLeft, AiOutlineClose } from 'react-icons/ai';
 import { folderFileTypes } from '../../protocols/protocols';
@@ -7,17 +7,27 @@ import { MoveModalItem } from '../MoveModaItem';
 type modalFunc = {
     modalFunc: () => void;
     id?: string;
-    buckets: folderFileTypes[]
+    buckets: folderFileTypes[];
+    allIdsFolder: string[];
+    allIdsFiles: string[];
 }
 
 export function MoveModal({ 
     modalFunc, 
     id = 'moveModal',
     buckets,
+    allIdsFiles,
+    allIdsFolder,
 }: modalFunc) {
 
     const [defaultBuckets, setDefaultBuckets] = useState(buckets);
     const [folderSelected, setFolderSelected] = useState('');
+    
+    // Não carregar as pastas marcadas para não serem movidas para elas mesmas.
+    useEffect(() => {
+        const filteredBuckets = defaultBuckets.filter(bucket => !allIdsFolder.includes(bucket.id))
+        setDefaultBuckets(filteredBuckets)
+    }, [allIdsFolder])
 
     async function handleOutSideClick(e: FormEvent) {
         if ((e.target as Element).id === id) modalFunc() 
