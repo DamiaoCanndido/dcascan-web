@@ -77,9 +77,8 @@ export default function Bucket({ buckets }: bucketProps) {
                                         name={bucket.name}
                                         checkAll={isCheckAll}
                                         allIdsFolder={allIdsFolder}
-                                        setAllIdsFolder={setAllIdsFolder} setAllIdsFiles={function (value: SetStateAction<string[]>): void {
-                                            throw new Error('Function not implemented.');
-                                        } } allIdsFiles={[]}                                    
+                                        setAllIdsFolder={setAllIdsFolder}
+                                        setAllIdsFiles={setAllIdsFiles}                    
                                     />
                                 )
                             } else {
@@ -94,9 +93,8 @@ export default function Bucket({ buckets }: bucketProps) {
                                         file={bucket.file}
                                         checkAll={isCheckAll}
                                         setAllIdsFiles={setAllIdsFiles}
-                                        allIdsFiles={allIdsFiles} setAllIdsFolder={function (value: SetStateAction<string[]>): void {
-                                            throw new Error('Function not implemented.');
-                                        } } allIdsFolder={[]}                                    
+                                        allIdsFiles={allIdsFiles} 
+                                        setAllIdsFolder={setAllIdsFolder}                                    
                                     /> 
                                 )
                             }

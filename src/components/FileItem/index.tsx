@@ -21,6 +21,7 @@ export function FileItem(bucket: folderFileTypes){
         setIsChecked(bucket.checkAll)
         if (!bucket.checkAll) {
             bucket.setAllIdsFiles([])
+            bucket.setAllIdsFolder([])
         }
     }, [bucket.checkAll])
 

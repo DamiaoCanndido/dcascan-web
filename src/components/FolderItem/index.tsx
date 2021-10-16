@@ -16,8 +16,13 @@ export function FolderItem(bucket: folderFileTypes){
 
     useEffect(()=>{
         setIsChecked(bucket.checkAll)
+    }, [bucket.checkAll])
+
+    useEffect(()=>{
+        setIsChecked(bucket.checkAll)
         if (!bucket.checkAll) {
             bucket.setAllIdsFolder([])
+            bucket.setAllIdsFiles([])
         }
     }, [bucket.checkAll])
 
