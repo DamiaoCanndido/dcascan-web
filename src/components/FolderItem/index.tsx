@@ -16,10 +16,6 @@ export function FolderItem(bucket: folderFileTypes){
 
     useEffect(()=>{
         setIsChecked(bucket.checkAll)
-    }, [bucket.checkAll])
-
-    useEffect(()=>{
-        setIsChecked(bucket.checkAll)
         if (!bucket.checkAll) {
             bucket.setAllIdsFolder([])
             bucket.setAllIdsFiles([])
@@ -93,7 +89,10 @@ export function FolderItem(bucket: folderFileTypes){
                 <input
                     type="checkbox"
                     checked={isChecked}
-                    onChange={() => setIsChecked(!isChecked)}
+                    onChange={() => {
+                        setIsChecked(!isChecked);
+
+                    }}
                 />
             </td>
             <td>

@@ -1,5 +1,6 @@
 import styles from './styles.module.scss';
 import { Dropzone } from '../Dropzone';
+import { useRouter } from "next/router";
 import { bucketProps } from '../../protocols/protocols';
 import { FolderItem } from '../FolderItem';
 import React, { SetStateAction, useEffect, useState } from 'react';
@@ -8,11 +9,17 @@ import { OptionsBar } from '../OptionsBar';
 
 
 export default function Bucket({ buckets }: bucketProps) {
+    const router = useRouter()
 
     const [isCheckAll, setIsCheckAll] = useState(false);
     const [allIdsFolder, setAllIdsFolder] = useState<string[]>([]);
     const [allIdsFiles, setAllIdsFiles] = useState<string[]>([]);
     const [disableOptionsBar, setDisableOptionsBar] = useState(false);
+
+    useEffect(() => {
+        setAllIdsFolder([]);
+        setAllIdsFiles([]);
+    }, [router.query.uuid])
 
 
     useEffect(() => {
@@ -20,6 +27,7 @@ export default function Bucket({ buckets }: bucketProps) {
             setDisableOptionsBar(true)
         } else {
             setDisableOptionsBar(false)
+            setIsCheckAll(false);
         }
     }, [allIdsFolder, allIdsFiles])
 
