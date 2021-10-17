@@ -89,10 +89,7 @@ export function FolderItem(bucket: folderFileTypes){
                 <input
                     type="checkbox"
                     checked={isChecked}
-                    onChange={() => {
-                        setIsChecked(!isChecked);
-
-                    }}
+                    onChange={() => setIsChecked(!isChecked)}
                 />
             </td>
             <td>

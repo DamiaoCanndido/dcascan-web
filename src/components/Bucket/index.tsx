@@ -62,6 +62,7 @@ export default function Bucket({ buckets }: bucketProps) {
                                 <input
                                     type="checkbox"
                                     disabled={false}
+                                    checked={isCheckAll}
                                     onChange={() => setIsCheckAll(!isCheckAll)}
                                 />
                             </th>
