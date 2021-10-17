@@ -25,6 +25,7 @@ export function MoveModal({
     
     // Não carregar as pastas marcadas para não serem movidas para elas mesmas.
     useEffect(() => {
+        console.log(allIdsFolder)
         const filteredBuckets = defaultBuckets.filter(bucket => !allIdsFolder.includes(bucket.id))
         setDefaultBuckets(filteredBuckets)
     }, [allIdsFolder])
@@ -58,6 +59,8 @@ export function MoveModal({
                                 updated_at={bucket.updated_at} 
                                 name={bucket.name} 
                                 folderSelected={folderSelected}
+                                defaultBuckets={defaultBuckets}
+                                setDefaultBuckets={setDefaultBuckets}
                             />
                         )
                     }

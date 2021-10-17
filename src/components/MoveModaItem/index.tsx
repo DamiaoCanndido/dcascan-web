@@ -1,13 +1,24 @@
-import React, { useState } from "react";
+import React, { FormEvent } from "react";
 import styles from './styles.module.scss';
 import { AiFillFolder } from "react-icons/ai";
 import { folderFileTypes } from "../../protocols/protocols";
+import { api } from "../../services/api";
 
 
 export function MoveModalItem(bucket: folderFileTypes) {
+
+    // Entra na pasta do moveModal.
+    const handleSubmit = async (e: FormEvent) => {
+        e.preventDefault()
+        
+        const response = await (await api.get(`/bucket/${bucket.id}`)).data
+
+        bucket.setDefaultBuckets(response)
+    }
+
     return (
         <div className={styles.moveModalItem}>
-            <button>
+            <button onClick={handleSubmit}>
                 <AiFillFolder size='2rem' color='var(--folder)'/>
                 <p>{bucket.name}</p>
             </button>
