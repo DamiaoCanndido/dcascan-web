@@ -50,9 +50,14 @@ export default function Header(){
             let data: data = {name: name.trim()}
 
             if (folder !== undefined) {
+                let backId: string = ''
                 data.root = folder.trim();
-                const backId = await (await api.get(`folder/${folder.trim()}`)).data['root']
-                data.back = backId
+                try {
+                    backId = await (await api.get(`folder/${folder.trim()}`)).data['root']
+                    data.back = backId
+                } catch (error) {
+                    router.replace('login')
+                }
             }
 
             await api.post('folder/', data)
