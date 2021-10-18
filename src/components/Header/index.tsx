@@ -17,6 +17,7 @@ const headerOptions = ['Exemplo 1', 'Exemplo 2', 'Exemplo 3']
 type data = {
     name: string;
     root?: string;
+    back?: string;
 }
 
 
@@ -50,6 +51,8 @@ export default function Header(){
 
             if (folder !== undefined) {
                 data.root = folder.trim();
+                const backId = await (await api.get(`folder/${folder.trim()}`)).data['root']
+                data.back = backId
             }
 
             await api.post('folder/', data)
