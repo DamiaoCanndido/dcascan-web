@@ -40,8 +40,9 @@ export type folderFileTypes = {
     updated_at: string,
     name: string,
     key?: string,
-    folder?: string
+    folder?: string,
     root?: string
+    back?: string
     checkAll?: boolean; 
     setAllIdsFolder?: React.Dispatch<React.SetStateAction<string[]>>;
     setAllIdsFiles?: React.Dispatch<React.SetStateAction<string[]>>;

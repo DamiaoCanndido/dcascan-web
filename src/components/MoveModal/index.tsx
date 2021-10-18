@@ -1,8 +1,10 @@
 import { FormEvent, useEffect, useState } from 'react';
 import styles from './styles.module.scss';
-import { AiOutlineArrowLeft, AiOutlineClose } from 'react-icons/ai';
+import { AiFillHome, AiOutlineClose } from 'react-icons/ai';
 import { folderFileTypes } from '../../protocols/protocols';
 import { MoveModalItem } from '../MoveModaItem';
+import { api } from '../../services/api';
+import router from 'next/router';
 
 type modalFunc = {
     modalFunc: () => void;
@@ -25,10 +27,21 @@ export function MoveModal({
     
     // Não carregar as pastas marcadas para não serem movidas para elas mesmas.
     useEffect(() => {
-        console.log(allIdsFolder)
+        // console.log(allIdsFolder)
         const filteredBuckets = defaultBuckets.filter(bucket => !allIdsFolder.includes(bucket.id))
         setDefaultBuckets(filteredBuckets)
     }, [allIdsFolder])
+
+    const handleHomeSubmit = async (e: FormEvent) => {
+        let response: folderFileTypes[];
+        e.preventDefault();
+        try {
+            response = await (await api.get(`/bucket/`)).data
+            setDefaultBuckets(response)
+        } catch (error) {
+            router.replace('login')
+        }
+    }
 
     async function handleOutSideClick(e: FormEvent) {
         if ((e.target as Element).id === id) modalFunc() 
@@ -38,8 +51,8 @@ export function MoveModal({
         <div id={id} className={styles.shadowZone} onClick={handleOutSideClick}>
             <div className={styles.modalContainer}>
                 <div className={styles.header}>
-                    <button>
-                        <AiOutlineArrowLeft size='1.5rem' color='var(--black)'/>
+                    <button onClick={handleHomeSubmit}>
+                        <AiFillHome size='1.5rem' color='var(--black)'/>
                     </button>
                     <button className={styles.moveButton}>
                         Mover
