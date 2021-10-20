@@ -49,6 +49,7 @@ export type folderFileTypes = {
     allIdsFolder?: string[];
     allIdsFiles?: string[];
     folderSelected?: string;
+    setFolderSelected?: React.Dispatch<React.SetStateAction<string>>;
     defaultBuckets?: folderFileTypes[];
     setDefaultBuckets?: React.Dispatch<React.SetStateAction<folderFileTypes[]>>;
 }

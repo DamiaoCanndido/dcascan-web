@@ -23,7 +23,7 @@ export function MoveModal({
 }: modalFunc) {
 
     const [defaultBuckets, setDefaultBuckets] = useState(buckets);
-    const [folderSelected, setFolderSelected] = useState('');
+    const [folderSelected, setFolderSelected] = useState(null);
     
     // Não carregar as pastas marcadas para não serem movidas para elas mesmas.
     useEffect(() => {
@@ -38,6 +38,21 @@ export function MoveModal({
         try {
             response = await (await api.get(`/bucket/`)).data
             setDefaultBuckets(response)
+            setFolderSelected(null);
+        } catch (error) {
+            router.replace('login')
+        }
+    }
+
+    const handleCutSubmit = async (e: FormEvent) => {
+        e.preventDefault();
+        try {
+            allIdsFolder.forEach(async cuts => {
+                await api.patch(`/folder/${cuts}`, {
+                    root: folderSelected
+                })
+            })
+            router.replace(router.asPath)
         } catch (error) {
             router.replace('login')
         }
@@ -54,7 +69,7 @@ export function MoveModal({
                     <button onClick={handleHomeSubmit}>
                         <AiFillHome size='1.5rem' color='var(--black)'/>
                     </button>
-                    <button className={styles.moveButton}>
+                    <button onClick={handleCutSubmit} className={styles.moveButton}>
                         Mover
                     </button>
                     <button onClick={modalFunc}>
@@ -72,6 +87,7 @@ export function MoveModal({
                                 updated_at={bucket.updated_at} 
                                 name={bucket.name} 
                                 folderSelected={folderSelected}
+                                setFolderSelected={setFolderSelected}
                                 defaultBuckets={defaultBuckets}
                                 setDefaultBuckets={setDefaultBuckets}
                             />

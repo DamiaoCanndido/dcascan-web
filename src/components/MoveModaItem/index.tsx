@@ -15,6 +15,8 @@ export function MoveModalItem(bucket: folderFileTypes) {
         try {
             response = await (await api.get(`/bucket/${bucket.id}`)).data
             bucket.setDefaultBuckets(response)
+            // novo root
+            bucket.setFolderSelected(bucket.id)
         } catch (error) {
             router.replace('login');
         }
