@@ -12,6 +12,8 @@ type modalFunc = {
     buckets: folderFileTypes[];
     allIdsFolder: string[];
     allIdsFiles: string[];
+    setAllIdsFolder: React.Dispatch<React.SetStateAction<string[]>>;
+    setAllIdsFiles: React.Dispatch<React.SetStateAction<string[]>>;
 }
 
 export function MoveModal({ 
@@ -20,6 +22,8 @@ export function MoveModal({
     buckets,
     allIdsFiles,
     allIdsFolder,
+    setAllIdsFolder,
+    setAllIdsFiles,
 }: modalFunc) {
 
     const [defaultBuckets, setDefaultBuckets] = useState(buckets);
@@ -51,8 +55,11 @@ export function MoveModal({
                 await api.patch(`/folder/${cuts}`, {
                     root: folderSelected
                 })
+                setAllIdsFolder([])
+                setAllIdsFiles([])
+                router.replace(router.asPath)
+                modalFunc()
             })
-            router.replace(router.asPath)
         } catch (error) {
             router.replace('login')
         }

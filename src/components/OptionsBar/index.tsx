@@ -89,6 +89,8 @@ export function OptionsBar({
                     buckets={buckets}
                     allIdsFiles={allIdsFiles}
                     allIdsFolder={allIdsFolder}
+                    setAllIdsFiles={setAllIdsFiles}
+                    setAllIdsFolder={setAllIdsFolder}
                 />
             }
             {isModalDeleteVisible &&
