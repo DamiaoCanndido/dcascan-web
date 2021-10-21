@@ -27,7 +27,7 @@ export function MoveModal({
 }: modalFunc) {
 
     const [defaultBuckets, setDefaultBuckets] = useState(buckets);
-    const [folderSelected, setFolderSelected] = useState(null);
+    const [folderSelected, setFolderSelected] = useState(buckets[0].root);
     
     // Não carregar as pastas marcadas para não serem movidas para elas mesmas.
     useEffect(() => {
@@ -50,27 +50,30 @@ export function MoveModal({
 
     const handleCutSubmit = async (e: FormEvent) => {
         e.preventDefault();
+        
         try {
-            if (allIdsFolder.length > 0) {
-                allIdsFolder.forEach(async folder => {
-                    await api.patch(`/folder/${folder}`, {
-                        root: folderSelected
-                    })
-                    setAllIdsFolder([])
-                    router.replace(router.asPath)
-                    modalFunc()
+            allIdsFolder.forEach(async folder => {
+                await api.patch(`/folder/${folder}`, {
+                    root: folderSelected
                 })
-            }
-            if (allIdsFiles.length > 0) {
-                allIdsFiles.forEach(async file => {
-                    await api.patch(`/uploads/${file}`, {
-                        folder: folderSelected
-                    })
-                    setAllIdsFiles([])
-                    router.replace(router.asPath)
-                    modalFunc()
+                setAllIdsFolder([])
+                router.replace(router.asPath)
+                modalFunc()
+            })
+        } catch (error) {
+            router.replace('login')
+        }
+    
+    
+        try {
+            allIdsFiles.forEach(async file => {
+                await api.patch(`/uploads/${file}`, {
+                    folder: folderSelected
                 })
-            }
+                setAllIdsFiles([])
+                router.replace(router.asPath)
+                modalFunc()
+            })
         } catch (error) {
             router.replace('login')
         }
