@@ -48,35 +48,33 @@ export function MoveModal({
         }
     }
 
-    const handleCutSubmit = async (e: FormEvent) => {
+    const handleCutSubmit = (e: FormEvent) => {
         e.preventDefault();
         
-        try {
-            allIdsFolder.forEach(async folder => {
+        allIdsFolder.forEach(folder => {
+            const cutFolders = async () => {
                 await api.patch(`/folder/${folder}`, {
                     root: folderSelected
-                })
+                }).catch(error => console.log(error))
                 setAllIdsFolder([])
                 router.replace(router.asPath)
                 modalFunc()
-            })
-        } catch (error) {
-            router.replace('login')
-        }
+            }
+            cutFolders()
+        })
     
-    
-        try {
-            allIdsFiles.forEach(async file => {
+        allIdsFiles.forEach(file => {
+            const cutFiles = async () => {
                 await api.patch(`/uploads/${file}`, {
                     folder: folderSelected
-                })
+                }).catch(error => console.log(error))
                 setAllIdsFiles([])
                 router.replace(router.asPath)
                 modalFunc()
-            })
-        } catch (error) {
-            router.replace('login')
-        }
+            }
+            cutFiles()
+        })
+        
     }
 
     async function handleOutSideClick(e: FormEvent) {

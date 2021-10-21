@@ -1,6 +1,6 @@
 import styles from './styles.module.scss';
 import { MdContentCut, MdDelete } from 'react-icons/md';
-import React, { FormEvent, useState } from 'react';
+import React, { FormEvent, useEffect, useState, useRef } from 'react';
 import { FolderModal } from '../FolderModal';
 import { api } from '../../services/api';
 import { useRouter } from 'next/router';
@@ -27,7 +27,16 @@ export function OptionsBar({
     const [isModalMoveVisible, setIsModalMoveVisible] = useState(false);
     const [disabled, setDisabled] = useState(false);
 
+    const mounted = useRef(true);
+
     const router = useRouter();
+
+    // possível solução Memory Leak.
+    useEffect(() => {
+        return (() => {
+            mounted.current = false;
+        })
+    }, [])
 
     const handleMoveModal = () => {
         setIsModalMoveVisible(!isModalMoveVisible);
