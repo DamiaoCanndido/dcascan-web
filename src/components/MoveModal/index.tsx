@@ -51,15 +51,26 @@ export function MoveModal({
     const handleCutSubmit = async (e: FormEvent) => {
         e.preventDefault();
         try {
-            allIdsFolder.forEach(async cuts => {
-                await api.patch(`/folder/${cuts}`, {
-                    root: folderSelected
+            if (allIdsFolder.length > 0) {
+                allIdsFolder.forEach(async folder => {
+                    await api.patch(`/folder/${folder}`, {
+                        root: folderSelected
+                    })
+                    setAllIdsFolder([])
+                    router.replace(router.asPath)
+                    modalFunc()
                 })
-                setAllIdsFolder([])
-                setAllIdsFiles([])
-                router.replace(router.asPath)
-                modalFunc()
-            })
+            }
+            if (allIdsFiles.length > 0) {
+                allIdsFiles.forEach(async file => {
+                    await api.patch(`/uploads/${file}`, {
+                        folder: folderSelected
+                    })
+                    setAllIdsFiles([])
+                    router.replace(router.asPath)
+                    modalFunc()
+                })
+            }
         } catch (error) {
             router.replace('login')
         }
