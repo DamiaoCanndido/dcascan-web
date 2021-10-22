@@ -4,24 +4,24 @@ import Link from 'next/link';
 import { Dropdown } from '../Dropdown';
 import { FiSearch } from "react-icons/fi";
 import { FaBars, FaTimes } from "react-icons/fa";
-import React, { FormEvent, useState } from 'react';
+import React, { FormEvent, useContext, useState } from 'react';
 import { AiFillFolder } from 'react-icons/ai';
 import { FolderModal } from '../FolderModal';
 import { FloatFolderButton } from '../FloatFolderButton';
 import { useRouter } from 'next/router';
 import { api } from '../../services/api';
-
-
-const headerOptions = ['Exemplo 1', 'Exemplo 2', 'Exemplo 3']
+import { AuthContext } from '../../contexts/AuthContext';
 
 type data = {
     name: string;
     root?: string;
-    back?: string;
 }
 
-
 export default function Header(){
+
+    const { user } = useContext(AuthContext)
+
+    const headerOptions = [user.username, 'Configurações']
 
     const [click, setClick] = useState(false);
     const [isModalVisible, setIsModalVisible] = useState(false);
