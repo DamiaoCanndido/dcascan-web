@@ -1,27 +1,78 @@
 import styles from './styles.module.scss';
 import { AuthContext } from '../../contexts/AuthContext';
-import { useContext, useState } from 'react';
+import React, { useContext, useState } from 'react';
+import { AiFillCaretDown, AiFillCaretUp } from 'react-icons/ai';
+import router from 'next/router';
+import { destroyCookie } from 'nookies';
 
 export function Dropdown() {
 
     const { user } = useContext(AuthContext);
-    const [click, setClick] = useState(false);
+    const [clickUser, setClickUser] = useState(false);
+    const [clickSettings, setClickSettings] = useState(false);
 
-    const handleClick = () => setClick(!click);
+    const handleClickUser = () => {
+        setClickUser(!clickUser);
+        setClickSettings(false);
+    }
+
+    const handleClickSettings = () => {
+        setClickSettings(!clickSettings);
+        setClickUser(false);
+    }
+
+    const logOut = () => {
+        destroyCookie(undefined, 'access-token')
+        destroyCookie(undefined, 'refresh-token')
+        router.replace('login');
+    }
 
     return (
         <ul className={styles.dropDownMenu}>
-            <li>
-                <div onClick={handleClick}>
+            <li className={styles.subItem}>
+                <div className={styles.item} onClick={handleClickUser}>
                     {user.username}
-                    {click && <p>Sub-items</p>}
+                    {!clickUser ?
+                        <AiFillCaretDown
+                            color='var(--white)'
+                            size={13}
+                        /> :
+                        <AiFillCaretUp
+                            color='var(--white)'
+                            size={13}
+                        />
+                    }
                 </div>
             </li>
-            <li>
-                <div onClick={()=>{console.log("Example 1")}}>
+            {clickUser && 
+                <li onClick={logOut}>
+                    <div>
+                        Sair
+                    </div>
+                </li>
+            }
+            <li className={styles.subItem}>
+                <div className={styles.item} onClick={handleClickSettings}>
                     Configurações
+                    {!clickSettings ?
+                        <AiFillCaretDown
+                            color='var(--white)'
+                            size={13}
+                        /> :
+                        <AiFillCaretUp
+                            color='var(--white)'
+                            size={13}
+                        />
+                    }
                 </div>
             </li>
+            {clickSettings && 
+                <li>
+                    <div>
+                        Em breve...
+                    </div>
+                </li>
+            }
         </ul>
     )
 }

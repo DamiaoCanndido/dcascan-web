@@ -6,17 +6,35 @@
     list-style: none;
     text-align: start;
 
-    li {
+    .subItem {
         background: var(--green-500);
         cursor: pointer;
 
-        div {
+        .item {
             display: flex;
-            width: 10rem;
+            width: 15rem;
             text-decoration: none;
             color: var(--white);
             padding: 1rem;
             align-items: center;
+            justify-content: space-between;
+        }
+    }
+
+    li {
+        background: var(--white);
+        cursor: pointer; 
+        border: 1px solid;
+
+        div {
+            display: flex;
+            width: 5rem;
+            text-decoration: none;
+            color: var(--black);
+            padding: 1rem;
+            align-items: center;
+            justify-content: space-between;
+            white-space: nowrap;
         }
     }
 
