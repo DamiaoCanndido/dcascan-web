@@ -4,13 +4,22 @@ import Header from '../../components/Header';
 import { apiServerSide } from '../../services/apiServerSide';
 import { bucketProps } from '../../protocols/protocols';
 import Bucket from '../../components/Bucket';
+import { useState } from 'react';
 
 
 function Home({ buckets }: bucketProps) {
+
+  const [dftBuckets, setDftBuckets] = useState(buckets)
+  const [search, setSearch] = useState('');
+
   return (
     <>
-      <Header/>
-      <Bucket buckets={buckets}/>
+      <Header 
+        search={search} 
+        setSearch={setSearch} 
+        setDftbuckets={setDftBuckets}
+      />
+      <Bucket buckets={dftBuckets}/>
     </>
   )
 }

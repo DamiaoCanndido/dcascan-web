@@ -4,13 +4,22 @@ import { GetServerSideProps } from 'next';
 import { apiServerSide } from '../../services/apiServerSide';
 import { destroyCookie, parseCookies } from 'nookies';
 import { bucketProps } from '../../protocols/protocols';
+import { useState } from 'react';
 
 
 export default function folderContent({ buckets }: bucketProps){
+
+  const [dftBuckets, setDftBuckets] = useState(buckets)
+  const [search, setSearch] = useState('');
+
     return (
         <>
-            <Header />
-            <Bucket buckets={buckets}/>
+            <Header 
+              search={search} 
+              setSearch={setSearch} 
+              setDftbuckets={setDftBuckets}
+            />
+            <Bucket buckets={dftBuckets}/>
         </>
     )
 }

@@ -10,13 +10,20 @@ import { FolderModal } from '../FolderModal';
 import { FloatFolderButton } from '../FloatFolderButton';
 import { useRouter } from 'next/router';
 import { api } from '../../services/api';
+import { folderFileTypes } from '../../protocols/protocols';
 
 type data = {
     name: string;
     root?: string;
 }
 
-export default function Header(){
+type searchProps = {
+    search: string;
+    setSearch: React.Dispatch<React.SetStateAction<string>>;
+    setDftbuckets: React.Dispatch<React.SetStateAction<folderFileTypes[]>>;
+}
+
+export default function Header({search, setSearch, setDftbuckets}:searchProps){
 
     const [click, setClick] = useState(false);
     const [isModalVisible, setIsModalVisible] = useState(false);
@@ -28,6 +35,17 @@ export default function Header(){
     const [disabled, setDisabled] = useState(false);
 
     const router = useRouter();
+
+    async function handleSearchSubmit(e: FormEvent) {
+        e.preventDefault();
+        if (search !== '') {
+            const response = await (await api.get(`bucket/?name=${search}`)).data
+            setDftbuckets(response)
+        } else {
+            const response = await (await api.get(`bucket`)).data
+            setDftbuckets(response)
+        }   
+    }
 
     async function handleSubmit(e: FormEvent) {
         e.preventDefault();
@@ -94,9 +112,14 @@ export default function Header(){
                         leftButtonTitle={'Criar'}                 
                     />
                 }
-                <form>
-                    <input placeholder='Em desenvolvimento...'/>
-                    <button>
+                <form onSubmit={handleSearchSubmit}>
+                    <input 
+                        placeholder='Em desenvolvimento...'
+                        type="text" 
+                        onChange={(e) => setSearch(e.target.value)}
+                        value={search}
+                    />
+                    <button type='submit'>
                         <FiSearch
                             color='var(--white)'
                             size={25}
