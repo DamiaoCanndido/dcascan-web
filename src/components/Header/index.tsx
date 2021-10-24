@@ -27,7 +27,18 @@ export default function Header(){
     const [name, setName] = useState('');
     const [disabled, setDisabled] = useState(false);
 
+    const [search, setSearch] = useState('');
+
     const router = useRouter();
+
+    async function handleSearchSubmit(e: FormEvent) {
+        e.preventDefault();
+        if (search.length > 0) {
+            router.replace(`${router.asPath}?name=${search}`)
+        } else {
+            router.replace(`home`)
+        }
+    }
 
     async function handleSubmit(e: FormEvent) {
         e.preventDefault();
@@ -94,9 +105,14 @@ export default function Header(){
                         leftButtonTitle={'Criar'}                 
                     />
                 }
-                <form>
-                    <input placeholder='Em desenvolvimento...'/>
-                    <button>
+                <form onSubmit={handleSearchSubmit}>
+                    <input 
+                        placeholder='Em desenvolvimento...'
+                        type="text" 
+                        onChange={(e) => setSearch(e.target.value)}
+                        value={search}
+                    />
+                    <button type='submit'>
                         <FiSearch
                             color='var(--white)'
                             size={25}

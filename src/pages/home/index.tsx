@@ -6,7 +6,7 @@ import { bucketProps } from '../../protocols/protocols';
 import Bucket from '../../components/Bucket';
 
 
-function Home({ buckets }: bucketProps) {
+function Home({ buckets }: bucketProps, search: string) {
   return (
     <>
       <Header/>
@@ -21,6 +21,9 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const { ['access-token']: accessToken } = parseCookies(ctx)
 
   let data: any;
+  let search: any;
+
+
 
   // token inexistente
   if (!accessToken) {
@@ -34,7 +37,13 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 
   // token inválido ou expirado
   try {
-    data = await (await apiClient.get('/bucket/')).data
+    if (ctx.query.name !== undefined) {
+      data = await (await apiClient.get(`/bucket/?name=${ctx.query.name}`)).data
+      search = ctx.query.name
+    } else {
+      data = await (await apiClient.get('/bucket/')).data
+      search = ''
+    }
   } catch (error) {
     data = [];
     destroyCookie(undefined, 'access-token')
@@ -48,7 +57,8 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   
   return {
     props: {
-      buckets: data
+      buckets: data,
+      search
     }
   }
 }
