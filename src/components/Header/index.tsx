@@ -34,7 +34,11 @@ export default function Header(){
     async function handleSearchSubmit(e: FormEvent) {
         e.preventDefault();
         if (search.length > 0) {
+            let queryParam: string = router.asPath;
             router.replace(`${router.asPath}?name=${search}`)
+            if (queryParam.split('?').length-1 > 0) {
+                router.replace(`${queryParam.split('?')[0]}?name=${search}`)
+            }
         } else {
             router.replace(`home`)
         }
@@ -76,7 +80,7 @@ export default function Header(){
     return (
         <div className={styles.divContainer}>
             <header>
-                <Link href='/'>
+                <Link href='/home'>
                     <a>
                         <Image
                             src="/TomK32-Paperboat.svg"
