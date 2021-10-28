@@ -68,7 +68,7 @@ export function FileItem(bucket: folderFileTypes){
             </td>
             <td>
                 <Link href={bucket.file}>
-                    <a>
+                    <a target="_blank" rel="noopener noreferrer">
                         {bucket.name}
                     </a>
                 </Link>
@@ -76,9 +76,6 @@ export function FileItem(bucket: folderFileTypes){
             <td>{bucket.updated_at}</td>
             <td>{bucket.created_at}</td>
             <td>
-                <button>
-                    <AiOutlineEdit size='2rem' color='var(--green-500)'/>
-                </button>
                 <button onClick={handleModal}>
                     <AiOutlineDelete size='2rem' color='var(--pdf)'/>
                 </button>

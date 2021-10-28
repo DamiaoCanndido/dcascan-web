@@ -57,7 +57,13 @@ export function FolderItem(bucket: folderFileTypes){
             }).catch(error => console.log(error))
 
             setIsModalUpdateVisible(false);
-            router.replace(router.asPath)
+            
+            if(router.asPath.includes('?')){
+                let queryString = router.asPath.split('?')
+                router.replace(queryString[0])
+            } else {
+                router.replace(router.asPath)
+            }
         }
 
         updateFolder();

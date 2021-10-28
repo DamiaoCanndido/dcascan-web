@@ -57,7 +57,15 @@ export function MoveModal({
                     root: folderSelected
                 }).catch(error => console.log(error))
                 setAllIdsFolder([])
-                router.replace(router.asPath)
+
+                // resolve o bug ao mover buscando os itens novamente
+                if(router.asPath.includes('?')){
+                    let queryString = router.asPath.split('?')
+                    router.replace(queryString[0])
+                } else {
+                    router.replace(router.asPath)
+                }
+
                 modalFunc()
             }
             cutFolders()
@@ -69,7 +77,15 @@ export function MoveModal({
                     folder: folderSelected
                 }).catch(error => console.log(error))
                 setAllIdsFiles([])
-                router.replace(router.asPath)
+
+                // resolve o bug ao mover buscando os itens novamente
+                if(router.asPath.includes('?')){
+                    let queryString = router.asPath.split('?')
+                    router.replace(queryString[0])
+                } else {
+                    router.replace(router.asPath)
+                }
+
                 modalFunc()
             }
             cutFiles()

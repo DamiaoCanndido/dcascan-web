@@ -44,7 +44,7 @@ export default function Bucket({ buckets }: bucketProps) {
                     buckets={buckets}
                 />
             }
-            {allIdsFolder.map((e, i)=> {
+            {/* {allIdsFolder.map((e, i)=> {
                 return (
                     <h3 key={i}>{e}</h3>
                 )
@@ -53,7 +53,7 @@ export default function Bucket({ buckets }: bucketProps) {
                 return (
                     <p key={i}>{e}</p>
                 )
-            })}
+            })} */}
             <section className={styles.myBucket}>
                 <table cellSpacing={0}>
                     <thead>
