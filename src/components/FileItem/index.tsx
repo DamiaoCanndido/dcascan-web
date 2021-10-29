@@ -75,6 +75,7 @@ export function FileItem(bucket: folderFileTypes){
             </td>
             <td>{bucket.updated_at}</td>
             <td>{bucket.created_at}</td>
+            <td>{bucket.size}</td>
             <td>
                 <button onClick={handleModal}>
                     <AiOutlineDelete size='2rem' color='var(--pdf)'/>

@@ -42,7 +42,7 @@ export type folderFileTypes = {
     key?: string,
     folder?: string,
     root?: string
-    back?: string
+    size?: number;
     checkAll?: boolean; 
     setAllIdsFolder?: React.Dispatch<React.SetStateAction<string[]>>;
     setAllIdsFiles?: React.Dispatch<React.SetStateAction<string[]>>;

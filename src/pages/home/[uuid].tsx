@@ -3,7 +3,7 @@ import Bucket from '../../components/Bucket';
 import { GetServerSideProps } from 'next';
 import { apiServerSide } from '../../services/apiServerSide';
 import { destroyCookie, parseCookies } from 'nookies';
-import { bucketProps } from '../../protocols/protocols';
+import { bucketProps, folderFileTypes } from '../../protocols/protocols';
 
 
 export default function folderContent({ buckets }: bucketProps){
@@ -22,8 +22,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   
     const { ['access-token']: accessToken } = parseCookies(ctx)
 
-    let data:any;
-    let search: any;
+    let data: folderFileTypes[];
 
     // token inexistente
     if (!accessToken) {
@@ -39,13 +38,10 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     try {
       if (ctx.query.name !== undefined) {
         data = await (await apiClient.get(`/bucket/${uuid}?name=${ctx.query.name}`)).data
-        search = ctx.query.name
       } else {
         data = await (await apiClient.get(`/bucket/${uuid}`)).data
-        search = ''
       }
     } catch (error) {
-      data = [];
       destroyCookie(undefined, 'access-token')
       return {
         redirect: {
@@ -58,7 +54,6 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     return {
       props: {
         buckets: data,
-        search
       }
     }
   }

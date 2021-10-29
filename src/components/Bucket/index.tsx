@@ -3,7 +3,7 @@ import { Dropzone } from '../Dropzone';
 import { useRouter } from "next/router";
 import { bucketProps } from '../../protocols/protocols';
 import { FolderItem } from '../FolderItem';
-import React, { SetStateAction, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FileItem } from '../FileItem';
 import { OptionsBar } from '../OptionsBar';
 
@@ -70,6 +70,7 @@ export default function Bucket({ buckets }: bucketProps) {
                             <th>Nome</th>
                             <th>Modificado em</th>
                             <th>Criado em</th>
+                            <th>Tamanho</th>
                             <th></th>
                         </tr>
                     </thead>
@@ -98,6 +99,7 @@ export default function Bucket({ buckets }: bucketProps) {
                                         owner={bucket.owner}
                                         created_at={bucket.created_at}
                                         updated_at={bucket.updated_at}
+                                        size={bucket.size}
                                         name={bucket.name}
                                         file={bucket.file}
                                         checkAll={isCheckAll}

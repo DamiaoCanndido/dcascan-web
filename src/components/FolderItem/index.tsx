@@ -110,6 +110,7 @@ export function FolderItem(bucket: folderFileTypes){
             </td>
             <td>{bucket.updated_at}</td>
             <td>{bucket.created_at}</td>
+            <td>---</td>
             <td>
                 <button onClick={handleUpdateModal}>
                     <AiOutlineEdit size='2rem' color='var(--green-500)'/>
