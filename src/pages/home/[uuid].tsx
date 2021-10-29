@@ -6,6 +6,7 @@ import { GetServerSideProps } from 'next';
 import { apiServerSide } from '../../services/apiServerSide';
 import { destroyCookie, parseCookies } from 'nookies';
 import { bucketProps, folderFileTypes } from '../../protocols/protocols';
+import { convertNumbertoBytes } from '../../utils/convertNumbertoBytes';
 
 
 export default function folderContent({ buckets }: bucketProps){
@@ -63,7 +64,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
           root: !bucket.root ? null : bucket.root,
           file: !bucket.file ? null : bucket.file,
           key: !bucket.key ? null : bucket.key,
-          size: !bucket.size ? null : bucket.size,
+          size: !bucket.size ? null : convertNumbertoBytes(bucket.size),
           folder: !bucket.folder ? null : bucket.folder,
         }
     })

@@ -2,6 +2,7 @@ import type { GetServerSideProps } from 'next';
 import { destroyCookie, parseCookies } from 'nookies';
 import { format, parseISO } from 'date-fns';
 import ptBR from 'date-fns/locale/pt-BR';
+import { convertNumbertoBytes } from '../../utils/convertNumbertoBytes';
 import Header from '../../components/Header';
 import { apiServerSide } from '../../services/apiServerSide';
 import { bucketProps, folderFileTypes } from '../../protocols/protocols';
@@ -61,7 +62,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
         root: !bucket.root ? null : bucket.root,
         file: !bucket.file ? null : bucket.file,
         key: !bucket.key ? null : bucket.key,
-        size: !bucket.size ? null : bucket.size,
+        size: !bucket.size ? null : convertNumbertoBytes(bucket.size),
         folder: !bucket.folder ? null : bucket.folder,
       }
   })
