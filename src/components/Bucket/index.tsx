@@ -76,7 +76,7 @@ export default function Bucket({ buckets }: bucketProps) {
                     </thead>
                     <tbody>
                         {buckets.map(bucket => {
-                            if (bucket.file === undefined) {
+                            if (!bucket.file) {
                                 return (
                                     <FolderItem 
                                         key={bucket.id}

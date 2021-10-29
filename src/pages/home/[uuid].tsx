@@ -1,5 +1,7 @@
 import Header from '../../components/Header';
 import Bucket from '../../components/Bucket';
+import { format, parseISO } from 'date-fns';
+import ptBR from 'date-fns/locale/pt-BR'
 import { GetServerSideProps } from 'next';
 import { apiServerSide } from '../../services/apiServerSide';
 import { destroyCookie, parseCookies } from 'nookies';
@@ -50,10 +52,27 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
         }
       }
     }
+
+    const buckets = data.map(bucket => {
+      return {
+          id: bucket.id,
+          owner: bucket.owner,
+          created_at: format(parseISO(bucket.created_at), 'dd MMM yyyy H:mm', {locale: ptBR}),
+          updated_at: format(parseISO(bucket.updated_at), 'dd MMM yyyy H:mm', {locale: ptBR}),
+          name: bucket.name,
+          root: !bucket.root ? null : bucket.root,
+          file: !bucket.file ? null : bucket.file,
+          key: !bucket.key ? null : bucket.key,
+          size: !bucket.size ? null : bucket.size,
+          folder: !bucket.folder ? null : bucket.folder,
+        }
+    })
+
+    console.log(buckets)
     
     return {
       props: {
-        buckets: data,
+        buckets
       }
     }
   }

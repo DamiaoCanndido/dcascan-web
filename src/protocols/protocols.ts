@@ -33,16 +33,16 @@ export type AuthContextType = {
 
 
 export type folderFileTypes = {
-    id: string,
-    file?: string,
-    owner: string,
-    created_at: string,
-    updated_at: string,
-    name: string,
-    key?: string,
-    folder?: string,
-    root?: string
-    size?: number;
+    id: string;
+    file?: string | null;
+    owner: string;
+    created_at: string;
+    updated_at: string;
+    name: string;
+    key?: string | null;
+    folder?: string;
+    root?: string | null;
+    size?: number | null;
     checkAll?: boolean; 
     setAllIdsFolder?: React.Dispatch<React.SetStateAction<string[]>>;
     setAllIdsFiles?: React.Dispatch<React.SetStateAction<string[]>>;
