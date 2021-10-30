@@ -10,3 +10,20 @@
     cursor: pointer;
     transition: height 0.4s ease;
 }
+
+.myUploads {
+    display: flex;
+    background-color: var(--white);
+    justify-content: flex-end;
+    align-items: flex-end;
+
+    button {
+        display: flex;
+        background-color: var(--pdf);
+        color: var(--white);
+        width: 1.3rem;
+        height: 1.3rem;
+        justify-content: center;
+        align-items: center;
+    }
+}

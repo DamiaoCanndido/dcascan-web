@@ -31,8 +31,13 @@ export const Dropzone = () => {
                     <p>Arraste e solte os arquivos aqui, ou clique aqui para selecionar os arquivos</p>
                 }
             </section>
-            {files.map((fileWrapper, index) => (
-                <SingleFileUploadWithProgress file={fileWrapper.file} key={index}/>
+            {files.length > 0 &&
+                <div className={styles.myUploads}>
+                    <button onClick={() => setFiles([])}>x</button>
+                </div>  
+            }
+            {files.map((fileWrapper, index) => (   
+                <SingleFileUploadWithProgress file={fileWrapper.file} key={index}/>   
             ))}
         </>
     )
