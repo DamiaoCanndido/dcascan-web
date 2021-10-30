@@ -10,6 +10,9 @@ export function MoveModalItem(bucket: folderFileTypes) {
 
     // Entra na pasta do moveModal.
     const handleSubmit = async (e: FormEvent) => {
+        // impedi que se mova uma pasta para ela mesma
+        bucket.setIsGoHome(true)
+
         e.preventDefault()
         let response: folderFileTypes[];
         try {
@@ -21,6 +24,7 @@ export function MoveModalItem(bucket: folderFileTypes) {
             router.replace('login');
         }
         
+        bucket.setIsGoHome(false)
     }
 
     return (

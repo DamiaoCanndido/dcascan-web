@@ -28,15 +28,20 @@ export function MoveModal({
 
     const [defaultBuckets, setDefaultBuckets] = useState(buckets);
     const [folderSelected, setFolderSelected] = useState(buckets[0].root);
+    // Atualiza o moveModal
+    // impedi que se mova uma pasta para ela mesma
+    const [isGoHome, setIsGoHome] = useState(false);
     
     // Não carregar as pastas marcadas para não serem movidas para elas mesmas.
     useEffect(() => {
         // console.log(allIdsFolder)
         const filteredBuckets = defaultBuckets.filter(bucket => !allIdsFolder.includes(bucket.id))
         setDefaultBuckets(filteredBuckets)
-    }, [allIdsFolder])
+    }, [allIdsFolder, isGoHome])
 
     const handleHomeSubmit = async (e: FormEvent) => {
+        setIsGoHome(true);
+
         let response: folderFileTypes[];
         e.preventDefault();
         try {
@@ -46,6 +51,8 @@ export function MoveModal({
         } catch (error) {
             router.replace('login')
         }
+
+        setIsGoHome(false);
     }
 
     const handleCutSubmit = (e: FormEvent) => {
@@ -125,6 +132,8 @@ export function MoveModal({
                                 setFolderSelected={setFolderSelected}
                                 defaultBuckets={defaultBuckets}
                                 setDefaultBuckets={setDefaultBuckets}
+                                isGoHome={isGoHome}
+                                setIsGoHome={setIsGoHome}
                             />
                         )
                     }

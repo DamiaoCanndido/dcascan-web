@@ -66,8 +66,6 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
         folder: !bucket.folder ? null : bucket.folder,
       }
   })
-
-  console.log(buckets)
   
   return {
     props: {

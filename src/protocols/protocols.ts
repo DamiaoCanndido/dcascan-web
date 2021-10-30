@@ -52,6 +52,8 @@ export type folderFileTypes = {
     setFolderSelected?: React.Dispatch<React.SetStateAction<string>>;
     defaultBuckets?: folderFileTypes[];
     setDefaultBuckets?: React.Dispatch<React.SetStateAction<folderFileTypes[]>>;
+    isGoHome?: boolean;
+    setIsGoHome?: React.Dispatch<React.SetStateAction<boolean>>;
 }
   
 export type bucketProps = {
