@@ -3,6 +3,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Dropdown } from '../Dropdown';
 import { FiSearch } from "react-icons/fi";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.min.css';
 import { FaBars, FaTimes } from "react-icons/fa";
 import React, { FormEvent, useState } from 'react';
 import { AiFillFolder } from 'react-icons/ai';
@@ -10,6 +12,8 @@ import { FolderModal } from '../FolderModal';
 import { FloatFolderButton } from '../FloatFolderButton';
 import { useRouter } from 'next/router';
 import { api } from '../../services/api';
+import { returnAllErrors } from '../../handlers/errorRegisterHandlers';
+import { errorToast } from '../../handlers/Toast';
 
 type data = {
     name: string;
@@ -65,7 +69,10 @@ export default function Header(){
 
             await api.post('folder/', data)
             .catch(function(error){
-                console.log(error)
+                const folderErrors = returnAllErrors(error.response.data)
+                for(let i = 0; i < folderErrors.length; i++){
+                    errorToast(folderErrors[i][0])
+                }
             })
 
             setIsModalVisible(!isModalVisible);
@@ -79,6 +86,7 @@ export default function Header(){
 
     return (
         <div className={styles.divContainer}>
+            <ToastContainer/>
             <header>
                 <Link href='/home'>
                     <a>
