@@ -1,4 +1,4 @@
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import type { GetServerSideProps, NextPage } from 'next'
 import Image from 'next/image';
 import Link from 'next/link';
@@ -21,6 +21,10 @@ const Login: NextPage = () => {
   const [rememberPassword, setRememberPassword] = useState(false);
 
   const { login } = useContext(AuthContext);
+
+  useEffect(() => {
+    destroyCookie(undefined, 'access-token')
+  }, [])
 
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
@@ -117,7 +121,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
       }
     }
   } catch (error) {
-    destroyCookie(ctx, 'access-token')
+    destroyCookie(undefined, 'access-token')
   }
   
   return {
