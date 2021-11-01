@@ -1,6 +1,7 @@
 import {useCallback, useState} from 'react'
 import {FileError, FileRejection, useDropzone} from 'react-dropzone'
 import { SingleFileUploadWithProgress } from '../SingleFileUploadWithProgress';
+import { UploadError } from '../UploadError';
 import styles from './styles.module.scss';
 
 
@@ -37,7 +38,9 @@ export const Dropzone = () => {
                 </div>  
             }
             {files.map((fileWrapper, index) => (   
-                <SingleFileUploadWithProgress file={fileWrapper.file} key={index}/>   
+                fileWrapper.errors.length
+                ? <UploadError file={fileWrapper.file} />  
+                : <SingleFileUploadWithProgress file={fileWrapper.file} key={index}/>
             ))}
         </>
     )

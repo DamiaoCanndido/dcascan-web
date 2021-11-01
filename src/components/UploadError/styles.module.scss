@@ -1,0 +1,19 @@
+.myUploadError {
+    background-color: var(--white);
+    padding: 1rem;
+    height: 5rem;
+    justify-content: center;
+    display: flex;
+    transition: height 0.4s ease;
+
+    p {
+        margin-right: auto;
+        align-self: center;
+        color: var(--pdf);
+    }
+
+    .circular {
+        width: auto;
+        height: auto;
+    }
+}
