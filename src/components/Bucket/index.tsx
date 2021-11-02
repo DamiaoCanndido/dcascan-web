@@ -6,6 +6,7 @@ import { FolderItem } from '../FolderItem';
 import React, { useEffect, useState } from 'react';
 import { FileItem } from '../FileItem';
 import { OptionsBar } from '../OptionsBar';
+import { FolderMobileItem } from '../FolderMobileItem';
 
 
 export default function Bucket({ buckets }: bucketProps) {
@@ -112,6 +113,15 @@ export default function Bucket({ buckets }: bucketProps) {
                         })}
                     </tbody>
                 </table>
+            </section>
+            <section className={styles.myMobileBucket}>
+                {buckets.map(bucket => {
+                    if (!bucket.file) {
+                        return (
+                            <FolderMobileItem key={bucket.id}/>
+                        )
+                    }
+                })}
             </section>
         </div>
     )
