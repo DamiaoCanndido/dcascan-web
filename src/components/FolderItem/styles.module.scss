@@ -34,3 +34,26 @@
         } 
     }
 }
+
+@media (min-width: 720px) {
+    .folderMobileItem {
+        display: none;
+    }
+}
+
+@media (max-width: 720px) {
+    .folderItem {
+        display: none;
+    } 
+    .folderMobileItem {
+        display: flex;
+        border: 1px solid var(--black);
+        height: 10rem;
+        margin: 0.5rem;
+        border-radius: 1rem;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+    }
+}
+

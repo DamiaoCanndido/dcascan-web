@@ -90,59 +90,72 @@ export function FolderItem(bucket: folderFileTypes){
     }
 
     return (
-        <tr className={styles.folderItem}>
-            <td>
-                <input
-                    type="checkbox"
-                    checked={isChecked}
-                    onChange={() => setIsChecked(!isChecked)}
-                />
-            </td>
-            <td>
-                <AiFillFolder size='3rem' color='var(--folder)'/>
-            </td>
-            <td>
-                <Link href={`/home/${bucket.id}`}>
-                    <a>
-                    {bucket.name}
-                    </a>
-                </Link>
-            </td>
-            <td>{bucket.updated_at}</td>
-            <td>{bucket.created_at}</td>
-            <td>---</td>
-            <td>
-                <button onClick={handleUpdateModal}>
-                    <AiOutlineEdit size='2rem' color='var(--green-500)'/>
-                </button>
-                <button onClick={handleDeleteModal}>
-                    <AiOutlineDelete size='2rem' color='var(--pdf)'/>
-                </button>
-                {isModalUpdateVisible &&
-                    <FolderModal 
-                        modalFunc={handleUpdateModal}
-                        inputVisible={true}
-                        titleVisible={true}
-                        title={`Atualizar pasta ${bucket.name}?`}
-                        name={name}
-                        changeInput={(e) => setName(e.target.value)}
-                        disabled={disabled}
-                        handleSubmit={handleUpdateSubmit} 
-                        leftButtonTitle={'Atualizar'}                    
+        <>
+            <tr className={styles.folderItem}>
+                <td>
+                    <input
+                        type="checkbox"
+                        checked={isChecked}
+                        onChange={() => setIsChecked(!isChecked)}
                     />
-                }
-                {isModalDeleteVisible &&
-                    <FolderModal 
-                        modalFunc={handleDeleteModal}
-                        inputVisible={false}
-                        titleVisible={true}
-                        title={`Deletar pasta ${bucket.name}?`}
-                        disabled={disabled}
-                        handleSubmit={handleDeleteSubmit} 
-                        leftButtonTitle={'Excluir'}                    
-                    />
-                }
-            </td>
-        </tr>   
+                </td>
+                <td>
+                    <AiFillFolder size='3rem' color='var(--folder)'/>
+                </td>
+                <td>
+                    <Link href={`/home/${bucket.id}`}>
+                        <a>
+                        {bucket.name}
+                        </a>
+                    </Link>
+                </td>
+                <td>{bucket.updated_at}</td>
+                <td>{bucket.created_at}</td>
+                <td>---</td>
+                <td>
+                    <button onClick={handleUpdateModal}>
+                        <AiOutlineEdit size='2rem' color='var(--green-500)'/>
+                    </button>
+                    <button onClick={handleDeleteModal}>
+                        <AiOutlineDelete size='2rem' color='var(--pdf)'/>
+                    </button>
+                    {isModalUpdateVisible &&
+                        <FolderModal 
+                            modalFunc={handleUpdateModal}
+                            inputVisible={true}
+                            titleVisible={true}
+                            title={`Atualizar pasta ${bucket.name}?`}
+                            name={name}
+                            changeInput={(e) => setName(e.target.value)}
+                            disabled={disabled}
+                            handleSubmit={handleUpdateSubmit} 
+                            leftButtonTitle={'Atualizar'}                    
+                        />
+                    }
+                    {isModalDeleteVisible &&
+                        <FolderModal 
+                            modalFunc={handleDeleteModal}
+                            inputVisible={false}
+                            titleVisible={true}
+                            title={`Deletar pasta ${bucket.name}?`}
+                            disabled={disabled}
+                            handleSubmit={handleDeleteSubmit} 
+                            leftButtonTitle={'Excluir'}                    
+                        />
+                    }
+                </td>
+            </tr> 
+
+            <Link href={`/home/${bucket.id}`}>
+                <a>
+                    <div className={styles.folderMobileItem}>
+                        <div className={styles.iconMobileItem}>
+                            <AiFillFolder size='5rem' color='var(--folder)'/>
+                        </div>
+                        <p>{bucket.name}</p> 
+                    </div>
+                </a>
+            </Link>
+        </>  
     )
 }

@@ -6,7 +6,6 @@ import { FolderItem } from '../FolderItem';
 import React, { useEffect, useState } from 'react';
 import { FileItem } from '../FileItem';
 import { OptionsBar } from '../OptionsBar';
-import { FolderMobileItem } from '../FolderMobileItem';
 
 
 export default function Bucket({ buckets }: bucketProps) {
@@ -118,7 +117,18 @@ export default function Bucket({ buckets }: bucketProps) {
                 {buckets.map(bucket => {
                     if (!bucket.file) {
                         return (
-                            <FolderMobileItem key={bucket.id}/>
+                            <FolderItem 
+                                key={bucket.id}
+                                id={bucket.id}
+                                owner={bucket.owner}
+                                created_at={bucket.created_at}
+                                updated_at={bucket.updated_at}
+                                name={bucket.name}
+                                checkAll={isCheckAll}
+                                allIdsFolder={allIdsFolder}
+                                setAllIdsFolder={setAllIdsFolder}
+                                setAllIdsFiles={setAllIdsFiles}                    
+                            />
                         )
                     }
                 })}
