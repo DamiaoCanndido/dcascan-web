@@ -20,6 +20,15 @@
         }
     }
 
+    @media (max-width: 720px) {
+        aside {
+            position: absolute;
+            left: 0;
+            top: 0;
+            z-index: -10;
+        }
+    }
+
     main {
         display: flex;
         justify-content: center;
@@ -32,8 +41,14 @@
         a {
             color: transparent;
             button {
-                width: 20rem;
+                width: 15rem;
             }
+        }
+    }
+
+    @media (max-width: 720px) {
+        main {
+            background: rgba($color: #00a9a5, $alpha: 0.5);
         }
     }
 }
