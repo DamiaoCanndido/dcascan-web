@@ -6,11 +6,13 @@ import { AiFillFolder, AiOutlineDelete, AiOutlineEdit, AiOutlineMore } from "rea
 import { folderFileTypes } from "../../protocols/protocols";
 import { FolderModal } from "../FolderModal";
 import { api } from "../../services/api";
+import { SnackBarMenu } from "../SnackBarMenu";
 
 export function FolderItem(bucket: folderFileTypes){
 
     const [isModalUpdateVisible, setIsModalUpdateVisible] = useState(false);
     const [isModalDeleteVisible, setIsModalDeleteVisible] = useState(false);
+    const [isSnackBarVisible, setIsSnackBarVisible] = useState(false);
 
     const [isChecked, setIsChecked] = useState(false);
 
@@ -36,9 +38,16 @@ export function FolderItem(bucket: folderFileTypes){
     const handleUpdateModal = () => {
         setIsModalUpdateVisible(!isModalUpdateVisible);
         setIsModalDeleteVisible(false);
+        setIsSnackBarVisible(false);
     }
     const handleDeleteModal = () => {
         setIsModalDeleteVisible(!isModalDeleteVisible);
+        setIsModalUpdateVisible(false);
+        setIsSnackBarVisible(false);
+    }
+    const handleSnackBarModal = () => {
+        setIsSnackBarVisible(!isSnackBarVisible);
+        setIsModalDeleteVisible(false);
         setIsModalUpdateVisible(false);
     }
 
@@ -155,10 +164,17 @@ export function FolderItem(bucket: folderFileTypes){
                 </Link>
                 <div className={styles.iconMobileOptions}>
                     <p>{bucket.name}</p>
-                    <button onClick={() => {console.log('OPÇÕES')}}>
+                    <button onClick={handleSnackBarModal}>
                         <AiOutlineMore size='2rem' color='var(--black)'/>
                     </button>
                 </div>
+                {isSnackBarVisible && 
+                    <SnackBarMenu 
+                        modalFunc={handleSnackBarModal}
+                        id={bucket.id}
+                        name={bucket.name}
+                    />
+                }
             </div>
         </> 
     )

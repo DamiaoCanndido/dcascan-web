@@ -1,0 +1,18 @@
+.snackBarShadow {
+    display: flex;
+    width: 100%;
+    height: 100vh;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 20;
+    background-color: rgba(0, 0, 0, 0.75);
+    justify-content: flex-end;
+    align-items: flex-end;
+
+    .snackContainer {
+        width: 100%;
+        height: 20rem;
+        background-color: var(--white);
+    }
+}
