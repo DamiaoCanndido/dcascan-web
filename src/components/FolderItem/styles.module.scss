@@ -52,8 +52,24 @@
         margin: 0.5rem;
         border-radius: 1rem;
         align-items: center;
-        justify-content: center;
+        justify-content: space-evenly;
         flex-direction: column;
+
+        .iconMobileOptions {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: row;
+
+            p {
+                
+            }
+    
+            button {
+                background-color: transparent;
+                border: none;
+            }
+        }
     }
 }
 

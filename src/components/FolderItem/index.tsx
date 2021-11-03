@@ -2,7 +2,7 @@ import Link from "next/link";
 import styles from './styles.module.scss';
 import { useRouter } from "next/router";
 import React, { FormEvent, useEffect, useState } from "react";
-import { AiFillFolder, AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
+import { AiFillFolder, AiOutlineDelete, AiOutlineEdit, AiOutlineMore } from "react-icons/ai";
 import { folderFileTypes } from "../../protocols/protocols";
 import { FolderModal } from "../FolderModal";
 import { api } from "../../services/api";
@@ -145,17 +145,21 @@ export function FolderItem(bucket: folderFileTypes){
                     }
                 </td>
             </tr> 
-
-            <Link href={`/home/${bucket.id}`}>
-                <a>
-                    <div className={styles.folderMobileItem}>
+            <div className={styles.folderMobileItem}>
+                <Link href={`/home/${bucket.id}`}>
+                    <a>
                         <div className={styles.iconMobileItem}>
                             <AiFillFolder size='5rem' color='var(--folder)'/>
-                        </div>
-                        <p>{bucket.name}</p> 
-                    </div>
-                </a>
-            </Link>
-        </>  
+                        </div> 
+                    </a>
+                </Link>
+                <div className={styles.iconMobileOptions}>
+                    <p>{bucket.name}</p>
+                    <button onClick={() => {console.log('OPÇÕES')}}>
+                        <AiOutlineMore size='2rem' color='var(--black)'/>
+                    </button>
+                </div>
+            </div>
+        </> 
     )
 }
