@@ -174,6 +174,32 @@ export function FolderItem(bucket: folderFileTypes){
                         id={bucket.id}
                         name={bucket.name}
                         folder={true}
+                        handleUpdateModal={handleUpdateModal}
+                        handleDeleteModal={handleDeleteModal}
+                    />
+                }
+                {isModalUpdateVisible &&
+                    <FolderModal 
+                        modalFunc={handleUpdateModal}
+                        inputVisible={true}
+                        titleVisible={true}
+                        title={`Atualizar pasta ${bucket.name}?`}
+                        name={name}
+                        changeInput={(e) => setName(e.target.value)}
+                        disabled={disabled}
+                        handleSubmit={handleUpdateSubmit} 
+                        leftButtonTitle={'Atualizar'}                    
+                    />
+                }
+                {isModalDeleteVisible &&
+                    <FolderModal 
+                        modalFunc={handleDeleteModal}
+                        inputVisible={false}
+                        titleVisible={true}
+                        title={`Deletar pasta ${bucket.name}?`}
+                        disabled={disabled}
+                        handleSubmit={handleDeleteSubmit} 
+                        leftButtonTitle={'Excluir'}                    
                     />
                 }
             </div>

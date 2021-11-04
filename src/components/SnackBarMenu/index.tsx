@@ -8,6 +8,8 @@ type snackBarFunc = {
     id: string;
     name: string;
     folder: boolean;
+    handleUpdateModal: () => void;
+    handleDeleteModal: () => void;
 }
 
 export function SnackBarMenu({
@@ -15,6 +17,8 @@ export function SnackBarMenu({
     id = 'snackModal', 
     name,
     folder,
+    handleUpdateModal,
+    handleDeleteModal
 }: snackBarFunc) {
 
     function handleOutSideClick(e: FormEvent) {
@@ -30,18 +34,20 @@ export function SnackBarMenu({
                     {name}
                 </div>
                 
-                <div className={styles.icon}>
-                    <AiOutlineEdit size='1.5rem' color='var(--white)'/>
-                    Renomear
-                </div>
-                <div className={styles.icon}>
+                {folder && 
+                    <button onClick={() => {handleUpdateModal()}} className={styles.snackIcon}>
+                        <AiOutlineEdit size='1.5rem' color='var(--white)'/>
+                        <p>Renomear</p>
+                    </button>
+                }
+                <button className={styles.snackIcon}>
                     <MdContentCut size='1.5rem' color='var(--white)'/>
-                    Mover
-                </div>
-                <div className={styles.icon}>
+                    <p>Mover</p>
+                </button>
+                <button className={styles.snackIcon}>
                     <AiOutlineDelete size='1.5rem' color='var(--white)'/>
-                    Excluir
-                </div>
+                    <p>Excluir</p>
+                </button>
                 
             </div>
         </div>
