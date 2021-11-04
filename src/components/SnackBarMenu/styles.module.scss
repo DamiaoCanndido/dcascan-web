@@ -6,13 +6,33 @@
     left: 0;
     top: 0;
     z-index: 20;
-    background-color: rgba(0, 0, 0, 0.75);
+    background-color: transparent;
     justify-content: flex-end;
     align-items: flex-end;
 
     .snackContainer {
         width: 100%;
         height: 20rem;
-        background-color: var(--white);
+        background-color: var(--green-800);
+        border-radius: 1rem 1rem 0rem 0rem;
+
+        .snackTitle {
+            display: flex;
+            height: 5rem;
+            background-color: var(--green-500);
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            border-radius: 1rem 1rem 0rem 0rem;
+            border-bottom: 1px solid var(--white);
+        }
+
+        
+        .icon {
+            height: 5rem;
+            color: var(--white);
+            border-bottom: 1px solid var(--white);
+        }
+        
     }
 }

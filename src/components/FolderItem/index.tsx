@@ -173,6 +173,7 @@ export function FolderItem(bucket: folderFileTypes){
                         modalFunc={handleSnackBarModal}
                         id={bucket.id}
                         name={bucket.name}
+                        folder={true}
                     />
                 }
             </div>
