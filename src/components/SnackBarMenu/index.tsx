@@ -35,7 +35,7 @@ export function SnackBarMenu({
                 </div>
                 
                 {folder && 
-                    <button onClick={() => {handleUpdateModal()}} className={styles.snackIcon}>
+                    <button onClick={handleUpdateModal} className={styles.snackIcon}>
                         <AiOutlineEdit size='1.5rem' color='var(--white)'/>
                         <p>Renomear</p>
                     </button>
@@ -44,7 +44,7 @@ export function SnackBarMenu({
                     <MdContentCut size='1.5rem' color='var(--white)'/>
                     <p>Mover</p>
                 </button>
-                <button className={styles.snackIcon}>
+                <button onClick={handleDeleteModal} className={styles.snackIcon}>
                     <AiOutlineDelete size='1.5rem' color='var(--white)'/>
                     <p>Excluir</p>
                 </button>
