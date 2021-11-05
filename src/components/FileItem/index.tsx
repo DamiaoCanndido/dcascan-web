@@ -2,16 +2,25 @@ import Link from "next/link";
 import styles from './styles.module.scss';
 import { useRouter } from "next/router";
 import React, { FormEvent, useEffect, useState } from "react";
-import { AiFillFilePdf, AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
+import { AiFillFilePdf, AiOutlineDelete, AiOutlineMore } from "react-icons/ai";
 import { folderFileTypes } from "../../protocols/protocols";
 import { FolderModal } from "../FolderModal";
 import { api } from "../../services/api";
+import { SnackBarMenu } from "../SnackBarMenu";
 
 export function FileItem(bucket: folderFileTypes){
 
-    const [isModalVisible, setIsModalVisible] = useState(false);
+    const [isModalDeleteVisible, setIsModalDeleteVisible] = useState(false);
+    const [isSnackBarVisible, setIsSnackBarVisible] = useState(false);
 
-    const handleModal = () => setIsModalVisible(!isModalVisible);
+    const handleDeleteModal = () => {
+        setIsModalDeleteVisible(!isModalDeleteVisible);
+        setIsSnackBarVisible(false);
+    }
+    const handleSnackBarModal = () => {
+        setIsSnackBarVisible(!isSnackBarVisible);
+        setIsModalDeleteVisible(false);
+    }
 
     const [disabled, setDisabled] = useState(false);
 
@@ -45,7 +54,7 @@ export function FileItem(bucket: folderFileTypes){
             await api.delete(`uploads/${bucket.id}`)
                 .catch(error => console.log(error))
 
-            setIsModalVisible(false);    
+            setIsModalDeleteVisible(false);    
             router.replace(router.asPath)
         }
 
@@ -55,43 +64,78 @@ export function FileItem(bucket: folderFileTypes){
     }
 
     return (
-        <tr className={styles.fileItem}>
-            <td>
-                <input
-                    type="checkbox"
-                    checked={isChecked}
-                    onChange={() => setIsChecked(!isChecked)}
-                />
-            </td>
-            <td>
-                <AiFillFilePdf size='3rem' color='var(--pdf)'/>
-            </td>
-            <td>
+        <>
+            <tr className={styles.fileItem}>
+                <td>
+                    <input
+                        type="checkbox"
+                        checked={isChecked}
+                        onChange={() => setIsChecked(!isChecked)}
+                    />
+                </td>
+                <td>
+                    <AiFillFilePdf size='3rem' color='var(--pdf)'/>
+                </td>
+                <td>
+                    <Link href={bucket.file}>
+                        <a target="_blank" rel="noopener noreferrer">
+                            {bucket.name}
+                        </a>
+                    </Link>
+                </td>
+                <td>{bucket.updated_at}</td>
+                <td>{bucket.created_at}</td>
+                <td>{bucket.size}</td>
+                <td>
+                    <button onClick={handleDeleteModal}>
+                        <AiOutlineDelete size='2rem' color='var(--pdf)'/>
+                    </button>
+                    {isModalDeleteVisible &&
+                        <FolderModal 
+                            modalFunc={handleDeleteModal}
+                            inputVisible={false}
+                            titleVisible={true}
+                            title={`Deletar arquivo ${bucket.name}?`} 
+                            disabled={disabled}
+                            handleSubmit={handleSubmit} 
+                            leftButtonTitle={'Excluir'}                 
+                        />
+                    }
+                </td>
+            </tr>
+            <div className={styles.fileMobileItem}>
                 <Link href={bucket.file}>
                     <a target="_blank" rel="noopener noreferrer">
-                        {bucket.name}
+                        <AiFillFilePdf size='5rem' color='var(--pdf)'/>
                     </a>
                 </Link>
-            </td>
-            <td>{bucket.updated_at}</td>
-            <td>{bucket.created_at}</td>
-            <td>{bucket.size}</td>
-            <td>
-                <button onClick={handleModal}>
-                    <AiOutlineDelete size='2rem' color='var(--pdf)'/>
-                </button>
-                {isModalVisible &&
-                    <FolderModal 
-                        modalFunc={handleModal}
-                        inputVisible={false}
-                        titleVisible={true}
-                        title={`Deletar arquivo ${bucket.name}?`} 
-                        disabled={disabled}
-                        handleSubmit={handleSubmit} 
-                        leftButtonTitle={'Excluir'}                 
+                <div className={styles.iconFileMobileOptions}>
+                    <p>{bucket.name}</p>
+                    <button onClick={handleSnackBarModal}>
+                        <AiOutlineMore size='2rem' color='var(--black)'/>
+                    </button>
+                </div>
+                {isSnackBarVisible && 
+                    <SnackBarMenu 
+                        modalFunc={handleSnackBarModal}
+                        id={bucket.id}
+                        name={bucket.name}
+                        folder={false}
+                        handleDeleteModal={handleDeleteModal}
                     />
                 }
-            </td>
-        </tr>
+                {isModalDeleteVisible &&
+                    <FolderModal 
+                        modalFunc={handleDeleteModal}
+                        inputVisible={false}
+                        titleVisible={true}
+                        title={`Deletar pasta ${bucket.name}?`}
+                        disabled={disabled}
+                        handleSubmit={handleSubmit} 
+                        leftButtonTitle={'Excluir'}                    
+                    />
+                }
+            </div>
+        </>
     )
 }

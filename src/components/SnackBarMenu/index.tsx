@@ -8,7 +8,7 @@ type snackBarFunc = {
     id: string;
     name: string;
     folder: boolean;
-    handleUpdateModal: () => void;
+    handleUpdateModal?: () => void;
     handleDeleteModal: () => void;
 }
 

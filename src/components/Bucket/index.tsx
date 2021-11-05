@@ -130,6 +130,23 @@ export default function Bucket({ buckets }: bucketProps) {
                                 setAllIdsFiles={setAllIdsFiles}                    
                             />
                         )
+                    } else {
+                        return (
+                            <FileItem 
+                                key={bucket.id}
+                                id={bucket.id}
+                                owner={bucket.owner}
+                                created_at={bucket.created_at}
+                                updated_at={bucket.updated_at}
+                                size={bucket.size}
+                                name={bucket.name}
+                                file={bucket.file}
+                                checkAll={isCheckAll}
+                                setAllIdsFiles={setAllIdsFiles}
+                                allIdsFiles={allIdsFiles} 
+                                setAllIdsFolder={setAllIdsFolder}                                    
+                            /> 
+                        )
                     }
                 })}
             </section>
