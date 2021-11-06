@@ -40,10 +40,6 @@ export function SnackBarMenu({
                         <p>Renomear</p>
                     </button>
                 }
-                <button className={styles.snackIcon}>
-                    <MdContentCut size='1.5rem' color='var(--white)'/>
-                    <p>Mover</p>
-                </button>
                 <button onClick={handleDeleteModal} className={styles.snackIcon}>
                     <AiOutlineDelete size='1.5rem' color='var(--white)'/>
                     <p>Excluir</p>

@@ -61,6 +61,10 @@
             justify-content: space-around;
             flex-direction: row;
             width: 100%;
+            
+            input {
+                margin-left: 0.5rem; 
+            }
 
             p {
                flex: 3;

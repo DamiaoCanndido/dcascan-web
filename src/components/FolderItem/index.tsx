@@ -163,6 +163,11 @@ export function FolderItem(bucket: folderFileTypes){
                     </a>
                 </Link>
                 <div className={styles.iconMobileOptions}>
+                    <input
+                        type="checkbox"
+                        checked={isChecked}
+                        onChange={() => setIsChecked(!isChecked)}
+                    />
                     <p>{bucket.name}</p>
                     <button onClick={handleSnackBarModal}>
                         <AiOutlineMore size='2rem' color='var(--black)'/>
