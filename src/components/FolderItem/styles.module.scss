@@ -67,9 +67,13 @@
             }
 
             p {
-               flex: 3;
-               margin-left: 0.5rem; 
-               text-align: center;
+                min-width: 2px;
+                max-width: 100px;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+                overflow: hidden;
+                margin-left: 0.5rem; 
+                text-align: center;
             }
     
             button {

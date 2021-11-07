@@ -1,12 +1,16 @@
 import Link from "next/link";
 import styles from './styles.module.scss';
 import { useRouter } from "next/router";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.min.css';
 import React, { FormEvent, useEffect, useState } from "react";
 import { AiFillFolder, AiOutlineDelete, AiOutlineEdit, AiOutlineMore } from "react-icons/ai";
 import { folderFileTypes } from "../../protocols/protocols";
 import { FolderModal } from "../FolderModal";
 import { api } from "../../services/api";
 import { SnackBarMenu } from "../SnackBarMenu";
+import { returnAllErrors } from "../../handlers/errorRegisterHandlers";
+import { errorToast } from "../../handlers/Toast";
 
 export function FolderItem(bucket: folderFileTypes){
 
@@ -63,7 +67,12 @@ export function FolderItem(bucket: folderFileTypes){
         const updateFolder = async () => {
             await api.put(`folder/${bucket.id}`, {
                 name: name.trim()
-            }).catch(error => console.log(error))
+            }).catch(function(error){
+                const folderErrors = returnAllErrors(error.response.data)
+                for(let i = 0; i < folderErrors.length; i++){
+                    errorToast(folderErrors[i][0])
+                }
+            })
 
             setIsModalUpdateVisible(false);
             

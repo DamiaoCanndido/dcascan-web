@@ -37,14 +37,12 @@ export default function Header(){
 
     async function handleSearchSubmit(e: FormEvent) {
         e.preventDefault();
+
         if (search.length > 0) {
-            let queryParam: string = router.asPath;
-            router.replace(`${router.asPath}?name=${search}`)
-            if (queryParam.split('?').length-1 > 0) {
-                router.replace(`${queryParam.split('?')[0]}?name=${search}`)
-            }
+            let queryString = router.asPath.split('?')
+            router.replace(`${queryString[0]}?name=${search}`)
         } else {
-            router.replace(`home`)
+            router.replace('home')
         }
     }
 
@@ -119,7 +117,7 @@ export default function Header(){
                 }
                 <form onSubmit={handleSearchSubmit}>
                     <input 
-                        placeholder='Em desenvolvimento...'
+                        placeholder='Pesquisar'
                         type="text" 
                         onChange={(e) => setSearch(e.target.value)}
                         value={search}
