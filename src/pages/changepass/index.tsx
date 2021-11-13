@@ -1,14 +1,16 @@
-import { FormEvent, useEffect, useState } from "react";
+import { FormEvent, useState, useContext } from "react";
 import type { GetServerSideProps, NextPage } from 'next'
-import Image from 'next/image';
-import Link from 'next/link';
 import styles from './styles.module.scss';
+import { useRouter } from 'next/router';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
+import { AuthContext } from '../../contexts/AuthContext';
 import { Button } from '../../components/Button';
 import { apiServerSide } from "../../services/apiServerSide";
 import { destroyCookie, parseCookies } from "nookies";
-import { errorToast } from "../../handlers/Toast";
+import { errorToast, successToast } from "../../handlers/Toast";
+import { api } from "../../services/api";
+import { returnAllErrors } from "../../handlers/errorRegisterHandlers";
 
 
 const ChangePass: NextPage = () => {
@@ -17,6 +19,9 @@ const ChangePass: NextPage = () => {
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [disabled, setDisabled] = useState(false);
+
+  const { user } = useContext(AuthContext);
+  const router = useRouter();
 
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
@@ -35,8 +40,30 @@ const ChangePass: NextPage = () => {
     }
 
     // requisição.
+    const res = await api.post('auth/change-password/', {
+      email: user.email,
+      password: oldPassword,
+      new_password: newPassword,
+      confirm_password: confirmPassword,
+    }).catch(function(error){
+      if (error.response.data.errors.detail) {
+        errorToast(error.response.data.errors.detail)
+      } else {
+        const registerErrors = returnAllErrors(error.response.data.errors)
+        for(let i = 0; i < registerErrors.length; i++){
+          errorToast(registerErrors[i][0])
+        }
+      }
+    })
 
     setDisabled(false);
+
+    if (res) {
+      destroyCookie(undefined, 'access-token')
+      destroyCookie(undefined, 'refresh-token')
+      successToast("Senha alterada.")
+      setTimeout(() => {router.replace('login')}, 1000)
+    }
   }
 
   return (

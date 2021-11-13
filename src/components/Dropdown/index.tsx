@@ -45,11 +45,18 @@ export function Dropdown() {
                 </div>
             </li>
             {clickUser && 
-                <li onClick={logOut}>
-                    <div>
-                        Sair
-                    </div>
-                </li>
+                <>
+                    <li onClick={() => {router.push('changepass')}}>
+                        <div>
+                            Trocar senha
+                        </div>
+                    </li>
+                    <li onClick={logOut}>
+                        <div>
+                            Sair
+                        </div>
+                    </li>
+                </>
             }
             <li className={styles.subItem}>
                 <div className={styles.item} onClick={handleClickSettings}>
