@@ -1,12 +1,13 @@
 import styles from './styles.module.scss';
 import Image from 'next/image';
 import Link from 'next/link';
+import { AuthContext } from '../../contexts/AuthContext';
 import { Dropdown } from '../Dropdown';
 import { FiSearch } from "react-icons/fi";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
 import { FaBars, FaTimes } from "react-icons/fa";
-import React, { FormEvent, useState } from 'react';
+import React, { FormEvent, useState, useContext, useEffect } from 'react';
 import { AiFillFolder } from 'react-icons/ai';
 import { FolderModal } from '../FolderModal';
 import { FloatFolderButton } from '../FloatFolderButton';
@@ -14,6 +15,7 @@ import { useRouter } from 'next/router';
 import { api } from '../../services/api';
 import { returnAllErrors } from '../../handlers/errorRegisterHandlers';
 import { errorToast } from '../../handlers/Toast';
+import recoverUser from '../../services/recoverUser';
 
 type data = {
     name: string;
@@ -21,6 +23,16 @@ type data = {
 }
 
 export default function Header(){
+
+    const [isSuperUser, setIsSuperUser] = useState(false);
+    
+    useEffect(() => {
+        const recordUser = async () => {
+            const user = await recoverUser()
+            setIsSuperUser(user.is_superuser)       
+        }
+        recordUser()
+    }, [])
 
     const [click, setClick] = useState(false);
     const [isModalVisible, setIsModalVisible] = useState(false);
@@ -96,12 +108,14 @@ export default function Header(){
                         />
                     </a>
                 </Link>
-                <button onClick={handleModal} className={styles.addFolder}>
-                    <AiFillFolder 
-                        size={30} 
-                        color='var(--green-500)'
-                    />
-                </button>
+                {isSuperUser && 
+                    <button onClick={handleModal} className={styles.addFolder}>
+                        <AiFillFolder 
+                            size={30} 
+                            color='var(--green-500)'
+                        />
+                    </button>
+                }
                 {isModalVisible &&
                     <FolderModal 
                         modalFunc={handleModal}
@@ -145,7 +159,7 @@ export default function Header(){
                 </button>
                 {click && <Dropdown/>}
             </header>
-            <FloatFolderButton modalFunc={handleModal} />
+            {isSuperUser && <FloatFolderButton modalFunc={handleModal} />}
         </div>
     );
 }

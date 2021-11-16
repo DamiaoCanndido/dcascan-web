@@ -42,7 +42,7 @@ export function AuthProvider(props: AuthContextProviderProps) {
 
         api.defaults.headers['Authorization'] = `Bearer ${response.tokens.access}`
 
-        setUser({ username: response.username, email: response.email })
+        setUser({ username: response.username, email: response.email, is_superuser: response.is_superuser })
         
         Router.replace('/home');
     }

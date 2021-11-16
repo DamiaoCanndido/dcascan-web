@@ -13,15 +13,17 @@ export type LogInData = {
 export type User = {
     username: string;
     email: string;
+    is_superuser: boolean;
 }
 
 export type DataResponse = {
     username: string;
     email: string;
     tokens: {
-        access: string,
-        refresh: string
-    }
+        access: string;
+        refresh: string;
+    };
+    is_superuser: boolean;
 }
 
 export type AuthContextType = {
