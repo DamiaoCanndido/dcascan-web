@@ -1,7 +1,6 @@
 import Link from "next/link";
 import styles from './styles.module.scss';
 import { useRouter } from "next/router";
-import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
 import React, { FormEvent, useEffect, useState } from "react";
 import { AiFillFolder, AiOutlineDelete, AiOutlineEdit, AiOutlineMore } from "react-icons/ai";
@@ -9,8 +8,10 @@ import { folderFileTypes } from "../../protocols/protocols";
 import { FolderModal } from "../FolderModal";
 import { api } from "../../services/api";
 import { SnackBarMenu } from "../SnackBarMenu";
+import { AuthContext } from '../../contexts/AuthContext';
 import { returnAllErrors } from "../../handlers/errorRegisterHandlers";
 import { errorToast } from "../../handlers/Toast";
+import recoverUser from "../../services/recoverUser";
 
 export function FolderItem(bucket: folderFileTypes){
 
@@ -19,6 +20,16 @@ export function FolderItem(bucket: folderFileTypes){
     const [isSnackBarVisible, setIsSnackBarVisible] = useState(false);
 
     const [isChecked, setIsChecked] = useState(false);
+
+    const [isSuperUser, setIsSuperUser] = useState(false);
+
+    useEffect(() => {
+        const recordUser = async () => {
+            const user = await recoverUser()
+            setIsSuperUser(user.is_superuser)       
+        }
+        recordUser()
+    }, [])
 
     useEffect(()=>{
         setIsChecked(bucket.checkAll)
@@ -110,13 +121,15 @@ export function FolderItem(bucket: folderFileTypes){
     return (
         <>
             <tr className={styles.folderItem}>
-                <td>
-                    <input
-                        type="checkbox"
-                        checked={isChecked}
-                        onChange={() => setIsChecked(!isChecked)}
-                    />
-                </td>
+                {isSuperUser && 
+                    <td>
+                        <input
+                            type="checkbox"
+                            checked={isChecked}
+                            onChange={() => setIsChecked(!isChecked)}
+                        />
+                    </td>
+                }
                 <td>
                     <AiFillFolder size='3rem' color='var(--folder)'/>
                 </td>
@@ -131,13 +144,17 @@ export function FolderItem(bucket: folderFileTypes){
                 <td>{bucket.created_at}</td>
                 <td>---</td>
                 <td>
-                    <button onClick={handleUpdateModal}>
-                        <AiOutlineEdit size='2rem' color='var(--green-500)'/>
-                    </button>
-                    <button onClick={handleDeleteModal}>
-                        <AiOutlineDelete size='2rem' color='var(--pdf)'/>
-                    </button>
-                    {isModalUpdateVisible &&
+                    {isSuperUser && 
+                        <>
+                            <button onClick={handleUpdateModal}>
+                                <AiOutlineEdit size='2rem' color='var(--green-500)'/>
+                            </button>
+                            <button onClick={handleDeleteModal}>
+                                <AiOutlineDelete size='2rem' color='var(--pdf)'/>
+                            </button>
+                        </>
+                    }
+                    {isSuperUser && isModalUpdateVisible &&
                         <FolderModal 
                             modalFunc={handleUpdateModal}
                             inputVisible={true}
@@ -150,7 +167,7 @@ export function FolderItem(bucket: folderFileTypes){
                             leftButtonTitle={'Atualizar'}                    
                         />
                     }
-                    {isModalDeleteVisible &&
+                    {isSuperUser && isModalDeleteVisible &&
                         <FolderModal 
                             modalFunc={handleDeleteModal}
                             inputVisible={false}
@@ -172,17 +189,21 @@ export function FolderItem(bucket: folderFileTypes){
                     </a>
                 </Link>
                 <div className={styles.iconMobileOptions}>
-                    <input
-                        type="checkbox"
-                        checked={isChecked}
-                        onChange={() => setIsChecked(!isChecked)}
-                    />
+                    {isSuperUser && 
+                        <input
+                            type="checkbox"
+                            checked={isChecked}
+                            onChange={() => setIsChecked(!isChecked)}
+                        />
+                    }
                     <p>{bucket.name}</p>
-                    <button onClick={handleSnackBarModal}>
-                        <AiOutlineMore size='2rem' color='var(--black)'/>
-                    </button>
+                    {isSuperUser && 
+                        <button onClick={handleSnackBarModal}>
+                            <AiOutlineMore size='2rem' color='var(--black)'/>
+                        </button>
+                    }
                 </div>
-                {isSnackBarVisible && 
+                {isSuperUser && isSnackBarVisible && 
                     <SnackBarMenu 
                         modalFunc={handleSnackBarModal}
                         id={bucket.id}
@@ -192,7 +213,7 @@ export function FolderItem(bucket: folderFileTypes){
                         handleDeleteModal={handleDeleteModal}
                     />
                 }
-                {isModalUpdateVisible &&
+                {isSuperUser && isModalUpdateVisible &&
                     <FolderModal 
                         modalFunc={handleUpdateModal}
                         inputVisible={true}
@@ -205,7 +226,7 @@ export function FolderItem(bucket: folderFileTypes){
                         leftButtonTitle={'Atualizar'}                    
                     />
                 }
-                {isModalDeleteVisible &&
+                {isSuperUser && isModalDeleteVisible &&
                     <FolderModal 
                         modalFunc={handleDeleteModal}
                         inputVisible={false}

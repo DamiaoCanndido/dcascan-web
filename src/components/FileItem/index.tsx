@@ -7,11 +7,22 @@ import { folderFileTypes } from "../../protocols/protocols";
 import { FolderModal } from "../FolderModal";
 import { api } from "../../services/api";
 import { SnackBarMenu } from "../SnackBarMenu";
+import recoverUser from "../../services/recoverUser";
 
 export function FileItem(bucket: folderFileTypes){
 
     const [isModalDeleteVisible, setIsModalDeleteVisible] = useState(false);
     const [isSnackBarVisible, setIsSnackBarVisible] = useState(false);
+
+    const [isSuperUser, setIsSuperUser] = useState(false);
+
+    useEffect(() => {
+        const recordUser = async () => {
+            const user = await recoverUser()
+            setIsSuperUser(user.is_superuser)       
+        }
+        recordUser()
+    }, [])
 
     const handleDeleteModal = () => {
         setIsModalDeleteVisible(!isModalDeleteVisible);
@@ -66,13 +77,15 @@ export function FileItem(bucket: folderFileTypes){
     return (
         <>
             <tr className={styles.fileItem}>
-                <td>
-                    <input
-                        type="checkbox"
-                        checked={isChecked}
-                        onChange={() => setIsChecked(!isChecked)}
-                    />
-                </td>
+                {isSuperUser && 
+                    <td>
+                        <input
+                            type="checkbox"
+                            checked={isChecked}
+                            onChange={() => setIsChecked(!isChecked)}
+                        />
+                    </td>
+                }
                 <td>
                     <AiFillFilePdf size='3rem' color='var(--pdf)'/>
                 </td>
@@ -87,10 +100,12 @@ export function FileItem(bucket: folderFileTypes){
                 <td>{bucket.created_at}</td>
                 <td>{bucket.size}</td>
                 <td>
-                    <button onClick={handleDeleteModal}>
-                        <AiOutlineDelete size='2rem' color='var(--pdf)'/>
-                    </button>
-                    {isModalDeleteVisible &&
+                    {isSuperUser && 
+                        <button onClick={handleDeleteModal}>
+                            <AiOutlineDelete size='2rem' color='var(--pdf)'/>
+                        </button>
+                    }
+                    {isSuperUser && isModalDeleteVisible &&
                         <FolderModal 
                             modalFunc={handleDeleteModal}
                             inputVisible={false}
@@ -110,17 +125,21 @@ export function FileItem(bucket: folderFileTypes){
                     </a>
                 </Link>
                 <div className={styles.iconFileMobileOptions}>
-                    <input
-                        type="checkbox"
-                        checked={isChecked}
-                        onChange={() => setIsChecked(!isChecked)}
-                    />
+                    {isSuperUser && 
+                        <input
+                            type="checkbox"
+                            checked={isChecked}
+                            onChange={() => setIsChecked(!isChecked)}
+                        />
+                    }
                     <p>{bucket.name}</p>
-                    <button onClick={handleSnackBarModal}>
-                        <AiOutlineMore size='2rem' color='var(--black)'/>
-                    </button>
+                    {isSuperUser && 
+                        <button onClick={handleSnackBarModal}>
+                            <AiOutlineMore size='2rem' color='var(--black)'/>
+                        </button>
+                    }
                 </div>
-                {isSnackBarVisible && 
+                {isSuperUser && isSnackBarVisible && 
                     <SnackBarMenu 
                         modalFunc={handleSnackBarModal}
                         id={bucket.id}
@@ -129,7 +148,7 @@ export function FileItem(bucket: folderFileTypes){
                         handleDeleteModal={handleDeleteModal}
                     />
                 }
-                {isModalDeleteVisible &&
+                {isSuperUser && isModalDeleteVisible &&
                     <FolderModal 
                         modalFunc={handleDeleteModal}
                         inputVisible={false}

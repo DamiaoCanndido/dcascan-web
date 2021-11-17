@@ -1,13 +1,12 @@
 import styles from './styles.module.scss';
 import Image from 'next/image';
 import Link from 'next/link';
-import { AuthContext } from '../../contexts/AuthContext';
 import { Dropdown } from '../Dropdown';
 import { FiSearch } from "react-icons/fi";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
 import { FaBars, FaTimes } from "react-icons/fa";
-import React, { FormEvent, useState, useContext, useEffect } from 'react';
+import React, { FormEvent, useState, useEffect } from 'react';
 import { AiFillFolder } from 'react-icons/ai';
 import { FolderModal } from '../FolderModal';
 import { FloatFolderButton } from '../FloatFolderButton';

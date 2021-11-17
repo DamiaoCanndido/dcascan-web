@@ -6,6 +6,7 @@ import { FolderItem } from '../FolderItem';
 import React, { useEffect, useState } from 'react';
 import { FileItem } from '../FileItem';
 import { OptionsBar } from '../OptionsBar';
+import recoverUser from '../../services/recoverUser';
 
 
 export default function Bucket({ buckets }: bucketProps) {
@@ -15,6 +16,16 @@ export default function Bucket({ buckets }: bucketProps) {
     const [allIdsFolder, setAllIdsFolder] = useState<string[]>([]);
     const [allIdsFiles, setAllIdsFiles] = useState<string[]>([]);
     const [disableOptionsBar, setDisableOptionsBar] = useState(false);
+
+    const [isSuperUser, setIsSuperUser] = useState(false);
+    
+    useEffect(() => {
+        const recordUser = async () => {
+            const user = await recoverUser()
+            setIsSuperUser(user.is_superuser)       
+        }
+        recordUser()
+    }, [])
 
     useEffect(() => {
         setAllIdsFolder([]);
@@ -34,8 +45,8 @@ export default function Bucket({ buckets }: bucketProps) {
 
     return (
         <div className={styles.homePage}>
-            <Dropzone/>
-            {disableOptionsBar && 
+            {isSuperUser && <Dropzone/>}
+            {isSuperUser && disableOptionsBar && 
                 <OptionsBar 
                     allIdsFolder={allIdsFolder} 
                     allIdsFiles={allIdsFiles}
@@ -44,28 +55,20 @@ export default function Bucket({ buckets }: bucketProps) {
                     buckets={buckets}
                 />
             }
-            {/* {allIdsFolder.map((e, i)=> {
-                return (
-                    <h3 key={i}>{e}</h3>
-                )
-            })}
-            {allIdsFiles.map((e, i)=> {
-                return (
-                    <p key={i}>{e}</p>
-                )
-            })} */}
             <section className={styles.myBucket}>
                 <table cellSpacing={0}>
                     <thead>
                         <tr>
-                            <th>
-                                <input
-                                    type="checkbox"
-                                    disabled={false}
-                                    checked={isCheckAll}
-                                    onChange={() => setIsCheckAll(!isCheckAll)}
-                                />
-                            </th>
+                            {isSuperUser && 
+                                <th>
+                                    <input
+                                        type="checkbox"
+                                        disabled={false}
+                                        checked={isCheckAll}
+                                        onChange={() => setIsCheckAll(!isCheckAll)}
+                                    />
+                                </th>
+                            }
                             <th>Tipo</th>
                             <th>Nome</th>
                             <th>Modificado em</th>
