@@ -115,7 +115,7 @@ export default function Header(){
                         />
                     </button>
                 }
-                {isModalVisible &&
+                {isSuperUser && isModalVisible &&
                     <FolderModal 
                         modalFunc={handleModal}
                         inputVisible={true}

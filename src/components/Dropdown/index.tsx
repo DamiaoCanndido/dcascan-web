@@ -1,9 +1,9 @@
 import styles from './styles.module.scss';
 import { AuthContext } from '../../contexts/AuthContext';
+import Cookies from 'js-cookie';
 import React, { useContext, useState } from 'react';
 import { AiFillCaretDown, AiFillCaretUp } from 'react-icons/ai';
 import router from 'next/router';
-import { destroyCookie } from 'nookies';
 
 export function Dropdown() {
 
@@ -22,8 +22,8 @@ export function Dropdown() {
     }
 
     const logOut = () => {
-        destroyCookie(undefined, 'access-token')
-        destroyCookie(undefined, 'refresh-token')
+        Cookies.remove('access-token')
+        Cookies.remove('refresh-token')
         router.replace('login');
     }
 

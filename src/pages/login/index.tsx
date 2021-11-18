@@ -9,8 +9,9 @@ import { Button } from '../../components/Button';
 import { useContext } from 'react';
 import { AuthContext } from '../../contexts/AuthContext';
 import { apiServerSide } from "../../services/apiServerSide";
-import { destroyCookie, parseCookies } from "nookies";
+import Cookie from 'js-cookie';
 import { errorToast } from "../../handlers/Toast";
+import { destroyCookie, parseCookies } from "nookies";
 
 
 const Login: NextPage = () => {
@@ -23,7 +24,8 @@ const Login: NextPage = () => {
   const { login } = useContext(AuthContext);
 
   useEffect(() => {
-    destroyCookie(undefined, 'access-token')
+    Cookie.remove('access-token');
+    Cookie.remove('refresh-token');
   }, [])
 
   async function handleSubmit(e: FormEvent) {
