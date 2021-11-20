@@ -1,7 +1,7 @@
 import { createContext, useEffect, useState } from 'react';
-import { setCookie, parseCookies, destroyCookie } from 'nookies';
+import Cookie from 'js-cookie';
 import { api } from '../services/api';
-import Router from 'next/router';
+import { useNavigate } from 'react-router-dom';
 import recoverUser from '../services/recoverUser';
 import { AuthContextProviderProps, AuthContextType, DataResponse, LogInData, User } from '../protocols/protocols';
 
@@ -9,11 +9,14 @@ import { AuthContextProviderProps, AuthContextType, DataResponse, LogInData, Use
 export const AuthContext = createContext({} as AuthContextType);
 
 export function AuthProvider(props: AuthContextProviderProps) {
+
+    const navigate = useNavigate();
+
     const [user , setUser] = useState<User | undefined>(undefined);
     const isAuthenticated = !!user;
 
     useEffect(() => {
-        const { 'access-token': accessToken } = parseCookies()
+        const accessToken = Cookie.get('access-token')
         const getUser = async () => {
             const user = await recoverUser();
             setUser(user)
@@ -29,22 +32,18 @@ export function AuthProvider(props: AuthContextProviderProps) {
         
 
         if (rememberPassword) {
-            setCookie(undefined, 'refresh-token', response.tokens.refresh, {
-                maxAge: 60 * 60 * 48 // 2 dias
-            })
-            setCookie(undefined, 'access-token', response.tokens.access, {
-                maxAge: 900 // 15 minutos
-            })
+            Cookie.set('refresh-token', response.tokens.access, {expires: 1})
+            Cookie.set('access-token', response.tokens.access, {expires: 1})
         } else {
-            setCookie(undefined, 'refresh-token', response.tokens.refresh)
-            setCookie(undefined, 'access-token', response.tokens.access)
+            Cookie.set('refresh-token', response.tokens.access)
+            Cookie.set('access-token', response.tokens.access)
         }
 
         api.defaults.headers['Authorization'] = `Bearer ${response.tokens.access}`
 
         setUser({ username: response.username, email: response.email, is_superuser: response.is_superuser })
         
-        Router.replace('/home');
+        //navigate('/home', {replace: true});
     }
 
     return (

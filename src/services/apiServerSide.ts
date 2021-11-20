@@ -1,11 +1,11 @@
 import axios from "axios";
-import { parseCookies } from 'nookies';
+import Cookie from 'js-cookie';
 
 
-export function apiServerSide(ctx?: any) {
-    const { ['access-token']: accessToken } = parseCookies(ctx)
+export function apiServerSide() {
+    const accessToken = Cookie.get('access-token')
     const api = axios.create({
-        baseURL: process.env.NEXT_PUBLIC_APP_URL
+        baseURL: 'http://127.0.0.1:8000'
         // 'http://127.0.0.1:8000'
         // 'http://192.168.1.11:8000'
         // 'http://192.168.1.5:8000'

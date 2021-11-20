@@ -1,7 +1,17 @@
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { AuthProvider } from './contexts/AuthContext';
+import { Landing } from './pages/landing';
+
 export function App() {
 
   return (
-    <h1>Hello World!</h1>
+    <BrowserRouter>
+      <AuthProvider>
+      <Routes>
+        <Route path='/' caseSensitive element={<Landing/>}/>
+      </Routes>
+      </AuthProvider>
+    </BrowserRouter>
   )
 
 }
