@@ -1,5 +1,6 @@
-import { FormEvent, useState, useContext } from "react";
+import { FormEvent, useState, useContext, useEffect } from "react";
 import type { GetServerSideProps, NextPage } from 'next'
+import Cookie from 'js-cookie';
 import styles from './styles.module.scss';
 import { useRouter } from 'next/router';
 import { ToastContainer } from 'react-toastify';
@@ -22,6 +23,13 @@ const ChangePass: NextPage = () => {
 
   const { user } = useContext(AuthContext);
   const router = useRouter();
+
+  useEffect(() => {
+    const accessToken = Cookie.get('access-token')
+    if (!accessToken) {
+      router.replace('login')
+    }
+  }, [])
 
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
@@ -103,27 +111,6 @@ const ChangePass: NextPage = () => {
         
     </div>
   )
-}
-
-export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const apiClient = apiServerSide(ctx)
-
-  const { ['access-token']: accessToken } = parseCookies(ctx)
-
-  try {
-    (await apiClient.get('auth/user')).status
-  } catch (error) {
-    return {
-        redirect: {
-            destination: '/login',
-            permanent: false
-        }
-    } 
-  }
-  
-  return {
-    props: {}
-  }
 }
 
 export default ChangePass;

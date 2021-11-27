@@ -3,13 +3,15 @@ import { AuthContext } from '../../contexts/AuthContext';
 import Cookies from 'js-cookie';
 import React, { useContext, useState } from 'react';
 import { AiFillCaretDown, AiFillCaretUp } from 'react-icons/ai';
-import router from 'next/router';
+import {useRouter} from 'next/router';
 
 export function Dropdown() {
 
     const { user } = useContext(AuthContext);
     const [clickUser, setClickUser] = useState(false);
     const [clickSettings, setClickSettings] = useState(false);
+
+    const router = useRouter();
 
     const handleClickUser = () => {
         setClickUser(!clickUser);
@@ -24,7 +26,11 @@ export function Dropdown() {
     const logOut = () => {
         Cookies.remove('access-token')
         Cookies.remove('refresh-token')
-        router.replace('login');
+        router.replace('/login');
+    }
+
+    const changePass = () => {
+        router.replace('/changepass')
     }
 
     return (
@@ -46,7 +52,7 @@ export function Dropdown() {
             </li>
             {clickUser && 
                 <>
-                    <li onClick={() => {router.push('changepass')}}>
+                    <li onClick={changePass}>
                         <div>
                             Trocar senha
                         </div>
